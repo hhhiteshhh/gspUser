@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "261900362570",
+    "project_id": "getsnappers-b188f",
+    "storage_bucket": "getsnappers-b188f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261900362570:android:7a21c29ef84ed4a1e917b3",
+        "android_client_info": {
+          "package_name": "com.getsnappers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261900362570-ahiinghert6o2thvscskhhdsnhtln9n2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.getsnappers",
+            "certificate_hash": "43005a46fa8103c1395fd675d035f260c122242c"
+          }
+        },
+        {
+          "client_id": "261900362570-seeu9ota0u7q3aohclemp464bmk6c2r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuOMD6jh0aLiiqwunNRqA02yDBdKOjgg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261900362570-seeu9ota0u7q3aohclemp464bmk6c2r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261900362570:android:d7d085c992478b0be917b3",
+        "android_client_info": {
+          "package_name": "com.getsnappersphotographer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261900362570-5gnabli5bn02fucf40scemdu6ogdtb75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.getsnappersphotographer",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "261900362570-seeu9ota0u7q3aohclemp464bmk6c2r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuOMD6jh0aLiiqwunNRqA02yDBdKOjgg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261900362570-seeu9ota0u7q3aohclemp464bmk6c2r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261900362570:android:724228d815951de6e917b3",
+        "android_client_info": {
+          "package_name": "com.smilebots.getsnappers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261900362570-bnu3ienj1ia2vi8q4m9j304r1p38nop7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smilebots.getsnappers",
+            "certificate_hash": "14711bc72842d97dad08218e077cc04485686e38"
+          }
+        },
+        {
+          "client_id": "261900362570-seeu9ota0u7q3aohclemp464bmk6c2r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuOMD6jh0aLiiqwunNRqA02yDBdKOjgg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261900362570-seeu9ota0u7q3aohclemp464bmk6c2r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
