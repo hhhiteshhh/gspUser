@@ -82,12 +82,16 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
         .onSnapshot(snapshot => {
           setStartDate(snapshot.data().startDate);
           setEndDate(snapshot.data().endDate);
-          setTimeSlot(snapshot.data().time);
+          setTimeSlot(snapshot.data().timeSlot);
         });
     }
   }, []);
 
   const editBooking = () => {
+    if (!timeIndex) {
+      ToastAndroid.show('All fields are mandatory', ToastAndroid.SHORT);
+      return;
+    }
     firestore().collection('bookings').doc(route.params.bookingId).update({
       time: timeSlot,
       startDate: startDate,
