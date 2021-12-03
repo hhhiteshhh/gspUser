@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
   storiesContainer: {
     alignItems: 'center',
     backgroundColor: Colors.white,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingRight: 10,
   },
   storiesContainer1: {
