@@ -5,9 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  WebView,
   Text,
   ToastAndroid,
+  Share,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -44,6 +44,25 @@ const StoryContainer = props => {
   const fetchCopiedText = async () => {
     const text = await clipboard.getString();
     setCopiedText(text);
+  };
+
+  const onShareRoutine = async text => {
+    try {
+      const result = await Share.share({
+        message: text,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const changeStory = evt => {
@@ -246,7 +265,10 @@ const StoryContainer = props => {
                   marginLeft: 'auto',
                   marginRight: 'auto',
                 }}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    onShareRoutine(story?.url);
+                  }}>
                   <Text
                     style={{textAlign: 'center', color: '#fff', fontSize: 20}}>
                     Share
