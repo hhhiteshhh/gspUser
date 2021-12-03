@@ -19,20 +19,13 @@ import StatusBarComponent from '../../../components/StatusBarComponent';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const statusBarHeight = StatusBar.currentHeight;
-const ChatScreen = ({navigation, bookingData, chatData, uid}) => {
+const ChatScreen = ({navigation, bookingData, uid}) => {
   const [photographerStatus, setPhotographerStatus] = useState([]);
   const [noChatYetImage, setNoChatImage] = useState();
-  useEffect(() => {
-    const dummyArray = [];
-    bookingData.forEach(booking => {
-      dummyArray.push(booking.photographerAllocated);
-      setPhotographerStatus(dummyArray);
-    });
-  }, [bookingData]);
-  useEffect(() => {
-    setNoChatImage(someComplete(photographerStatus));
-  }, [photographerStatus, bookingData]);
+  const [chatsId, setChatsId] = useState([]);
+  const [sortedChatData, setSortedChatData] = useState([]);
   const someComplete = booking => booking?.some(v => v === true);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: props => (
@@ -65,9 +58,16 @@ const ChatScreen = ({navigation, bookingData, chatData, uid}) => {
       },
     });
   }, [navigation]);
-
-  const [chatsId, setChatsId] = useState([]);
-
+  useEffect(() => {
+    const dummyArray = [];
+    bookingData.forEach(booking => {
+      dummyArray.push(booking.photographerAllocated);
+      setPhotographerStatus(dummyArray);
+    });
+  }, [bookingData]);
+  useEffect(() => {
+    setNoChatImage(someComplete(photographerStatus));
+  }, [photographerStatus, bookingData]);
   useEffect(
     () =>
       firestore()
@@ -80,7 +80,6 @@ const ChatScreen = ({navigation, bookingData, chatData, uid}) => {
         }),
     [navigation],
   );
-  const [sortedChatData, setSortedChatData] = useState([]);
   useEffect(() => {
     let newArray = chatsId?.filter(function (el) {
       return el.data.users[1] === uid;
