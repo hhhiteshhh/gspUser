@@ -64,6 +64,8 @@ export default function OTPScreen({mobileNumber, navigation}) {
           if (success.data) {
             if (success.data.type === 'success') {
               console.log('otp verified');
+              ToastAndroid.show('otp verified', ToastAndroid.SHORT);
+
               let token = await createUser(`91${mobileNumber}`);
               if (token) {
                 signInPhoneAuthUser(token);
@@ -79,6 +81,7 @@ export default function OTPScreen({mobileNumber, navigation}) {
         } else {
           console.warn('Woops, looks like something went wrong!');
           console.log('wrong otp');
+          ToastAndroid.show('Wrong OTP', ToastAndroid.SHORT);
         }
       } catch (e) {
         console.error(e);
