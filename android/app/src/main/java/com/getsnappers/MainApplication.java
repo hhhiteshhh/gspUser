@@ -1,5 +1,6 @@
 package com.smilebots.getsnappers;
 
+import net.zubricky.AndroidKeyboardAdjust.AndroidKeyboardAdjustPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;

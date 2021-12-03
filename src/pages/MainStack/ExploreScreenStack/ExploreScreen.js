@@ -25,6 +25,7 @@ import 'intl/locale-data/jsonp/en';
 import addBookingBg from '../../../../assets/images/bookingScreenImages/dubai.jpeg';
 import Destination from '../../../components/Destination';
 import ProgressiveImage from '../../../components/ProgressiveImage';
+import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -65,6 +66,7 @@ const ExploreScreen = ({
   }, [activeIndex, popularDestinationData, exploreScreenData]);
 
   const renderItem = ({item, index}) => {
+    console.log(item);
     return (
       <View key={index}>
         <ProgressiveImage
@@ -83,9 +85,11 @@ const ExploreScreen = ({
     );
   };
 
+  useEffect(() => AndroidKeyboardAdjust.setAdjustPan(), []);
   const onChangeSearch = q => {
     if (q.length == 0) {
       setFocus(false);
+      setActiveIndex(0);
     }
     setSearchQuery(q);
     showResult(q);
@@ -111,6 +115,7 @@ const ExploreScreen = ({
           if (searchQuery.length == 0) {
             setFocus(false);
           }
+          setActiveIndex(0);
         }}>
         {focus ? (
           <ImageBackground

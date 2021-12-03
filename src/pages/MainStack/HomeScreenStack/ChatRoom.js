@@ -17,6 +17,7 @@ import Icon from 'react-native-easy-icon';
 import FastImage from 'react-native-fast-image';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
+import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 
 const ChatRoom = ({navigation, route, uid}) => {
   const {recipient, messagesId, photoUrl, chatId, sender} = route.params;
@@ -128,6 +129,8 @@ const ChatRoom = ({navigation, route, uid}) => {
       messageForUser: false,
     });
   }, [photographersMessagesId]);
+  useEffect(() => AndroidKeyboardAdjust.setAdjustResize(), []);
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.base}}>
       <KeyboardAvoidingView
