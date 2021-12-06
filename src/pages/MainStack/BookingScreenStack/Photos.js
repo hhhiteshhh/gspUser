@@ -55,7 +55,13 @@ const Photos = ({navigation, route}) => {
               paddingLeft: 20,
               textTransform: 'capitalize',
             }}>
-            {route.params.name}
+            {route.params.name.split(',')[0]},
+            <Text
+              style={{
+                textTransform: 'uppercase',
+              }}>
+              {route.params.name.split(',')[1]}
+            </Text>
           </Text>
         </View>
         <ScrollView

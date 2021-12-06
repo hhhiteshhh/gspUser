@@ -28,19 +28,19 @@ const BookingCard = ({navigation, data, status}) => {
   useEffect(() => {
     firestore()
       .collection('cities')
-      .doc(data.destinationId?.cityId)
+      .doc(data?.destinationId?.cityId)
       .onSnapshot(snapshot => {
         setLocationData({...snapshot.data()});
       });
     firestore()
       .collection('packages')
-      .doc(data.packageId)
+      .doc(data?.packageId)
       .onSnapshot(snapshot => {
         setPackageData({...snapshot.data()});
       });
     firestore()
       .collection('destinations')
-      .doc(data.destinationId?.destinationId)
+      .doc(data?.destinationId?.destinationId)
       .onSnapshot(snapshot => {
         setViewDestinationData({...snapshot.data()});
       });
@@ -55,7 +55,7 @@ const BookingCard = ({navigation, data, status}) => {
   const [show, setShow] = useState(false);
   const bookingdate = data?.createdAt?.toDate().toLocaleDateString().split('/');
   const cancelBooking = () => {
-    firestore().collection('bookings').doc(data.id).update({
+    firestore().collection('bookings').doc(data?.id).update({
       bookingStatus: 'cancelled',
       cancelled: true,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -125,8 +125,15 @@ const BookingCard = ({navigation, data, status}) => {
                     lineHeight: 22,
                     textTransform: 'capitalize',
                     color: '#000',
+                    textTransform: 'capitalize',
                   }}>
-                  {data?.destinationName}
+                  {data?.destinationName.split(',')[0]},
+                  <Text
+                    style={{
+                      textTransform: 'uppercase',
+                    }}>
+                    {data?.destinationName.split(',')[1]}
+                  </Text>
                 </Text>
                 <View
                   style={{
@@ -145,7 +152,7 @@ const BookingCard = ({navigation, data, status}) => {
                         color: Colors.blue,
                         fontWeight: 'bold',
                       }}>
-                      {data.startDate}
+                      {data?.startDate}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -210,10 +217,10 @@ const BookingCard = ({navigation, data, status}) => {
                   <Text
                     style={{
                       fontSize: windowWidth < 390 ? 9 : 12,
-                      color: data.photographerAllocated ? Colors.blue : 'red',
+                      color: data?.photographerAllocated ? Colors.blue : 'red',
                       fontWeight: 'bold',
                     }}>
-                    {data.photographerAllocated
+                    {data?.photographerAllocated
                       ? photographerData?.firstName
                         ? photographerData?.firstName +
                           ' ' +
@@ -274,7 +281,7 @@ const BookingCard = ({navigation, data, status}) => {
                       location: '',
                       event: '',
                       edit: true,
-                      bookingId: data.id,
+                      bookingId: data?.id,
                     });
                   }}>
                   <Icon
@@ -415,7 +422,13 @@ const BookingCard = ({navigation, data, status}) => {
                   textTransform: 'capitalize',
                   color: '#000',
                 }}>
-                {data.destinationName}
+                {data?.destinationName.split(',')[0]},
+                <Text
+                  style={{
+                    textTransform: 'uppercase',
+                  }}>
+                  {data?.destinationName.split(',')[1]}
+                </Text>
               </Text>
               <Text
                 style={{
@@ -425,7 +438,7 @@ const BookingCard = ({navigation, data, status}) => {
                   lineHeight: 22,
                   color: '#000',
                 }}>
-                {data.startDate}
+                {data?.startDate}
               </Text>
               <View
                 style={{
@@ -445,10 +458,10 @@ const BookingCard = ({navigation, data, status}) => {
                   <Text
                     style={{
                       fontSize: 10,
-                      color: data.photographerAllocated ? Colors.blue : 'red',
+                      color: data?.photographerAllocated ? Colors.blue : 'red',
                       fontWeight: 'bold',
                     }}>
-                    {data.photographerAllocated
+                    {data?.photographerAllocated
                       ? photographerData?.firstName
                         ? photographerData?.firstName +
                           ' ' +
@@ -542,7 +555,13 @@ const BookingCard = ({navigation, data, status}) => {
                 textTransform: 'capitalize',
                 color: '#000',
               }}>
-              {data?.destinationName}
+              {data?.destinationName.split(',')[0]},
+              <Text
+                style={{
+                  textTransform: 'uppercase',
+                }}>
+                {data?.destinationName.split(',')[1]}
+              </Text>
             </Text>
             <Text
               style={{
@@ -551,7 +570,7 @@ const BookingCard = ({navigation, data, status}) => {
                 fontWeight: 'bold',
                 lineHeight: 22,
               }}>
-              {data.startDate}
+              {data?.startDate}
             </Text>
             <View
               style={{
@@ -566,10 +585,10 @@ const BookingCard = ({navigation, data, status}) => {
                 <Text
                   style={{
                     fontSize: 10,
-                    color: data.photographerAllocated ? Colors.blue : 'red',
+                    color: data?.photographerAllocated ? Colors.blue : 'red',
                     fontWeight: 'bold',
                   }}>
-                  {data.photographerAllocated
+                  {data?.photographerAllocated
                     ? photographerData?.firstName
                       ? photographerData?.firstName +
                         ' ' +
@@ -605,17 +624,17 @@ const BookingCard = ({navigation, data, status}) => {
                 disabled={!data?.photosUploaded}
                 onPress={() => {
                   navigation.navigate('Photos', {
-                    name: data.destinationName,
+                    name: data?.destinationName,
                   });
                 }}>
                 <Text
                   style={{
                     fontSize: 10,
                     fontWeight: 'bold',
-                    color: data.photosUploaded ? Colors.blue : 'red',
+                    color: data?.photosUploaded ? Colors.blue : 'red',
                     lineHeight: 22,
                   }}>
-                  {data.photosUploaded ? 'View Photos' : 'Yet to upload photos'}
+                  {data?.photosUploaded ? 'View Photos' : 'Yet to upload photos'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -652,7 +671,7 @@ const BookingCard = ({navigation, data, status}) => {
             }}>
             Are you sure you want to cancel your upcoming booking for{' '}
             <Text style={{textTransform: 'uppercase', color: '#fff'}}>
-              {data.destinationName.split(',')[0]}?
+              {data?.destinationName.split(',')[0]}?
             </Text>
           </Text>
           <View

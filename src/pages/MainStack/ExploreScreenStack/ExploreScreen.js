@@ -492,6 +492,7 @@ const ExploreScreen = ({
                 </TouchableOpacity>
               </View>
             </View>
+            <View style={{height: 50}} />
           </ScrollView>
         )}
       </TouchableWithoutFeedback>
@@ -505,6 +506,7 @@ const styles = StyleSheet.create({
   root: {
     height: windowHeight,
     overflow: 'hidden',
+    backgroundColor: '#fff',
   },
   imageBg: {
     flex: 1,
