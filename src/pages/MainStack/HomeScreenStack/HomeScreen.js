@@ -9,10 +9,9 @@ import {
   Dimensions,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import Stories from '../../../components/Stories/Stories';
+import firebase from '@react-native-firebase/app';
 import {Colors} from '../../../colors';
 import Icon from 'react-native-easy-icon';
-import FastImage from 'react-native-fast-image';
 import RecommendedTravel from '../../../components/RecommendedTravel';
 import Categories from '../../../components/Categories';
 import LinearGradient from 'react-native-linear-gradient';
@@ -21,6 +20,7 @@ import StatusBarComponent from '../../../components/StatusBarComponent';
 import LoadingPlaceHolder from '../../../components/LoadingPlaceHolder';
 import ProgressiveImage from '../../../components/ProgressiveImage';
 import InstaStory from 'react-native-insta-story';
+import SwipeUpIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const statusBarHeight = StatusBar.currentHeight;
 const windowWidth = Dimensions.get('window').width;
@@ -43,8 +43,8 @@ export default function HomeScreen({
   const [messagesLength, setMessagesLength] = useState();
   const [storiesData, setStoriesData] = useState([]);
   const [AllStories, setAllStories] = useState([]);
-  const [seenStories, setSeenStories] = useState([]);
-  const [unseenStories, setUnseenStories] = useState([]);
+  const [storyDataWithSeenBy, setstoryDataWithSeenBy] = useState();
+  const [storyData, setStoryData] = useState([]);
 
   useEffect(() => {
     let newArray = AllStories?.filter(function (el) {
@@ -109,7 +109,6 @@ export default function HomeScreen({
         ),
     [],
   );
-  const [storyDataWithSeenBy, setstoryDataWithSeenBy] = useState();
   useEffect(() => {
     let seenByUser = [];
     let notSeenByUser = [];
@@ -131,7 +130,6 @@ export default function HomeScreen({
     });
   }, [AllStories, storiesData]);
 
-  const [storyData, setStoryData] = useState([]);
   useEffect(() => {
     setStoryData(
       storyDataWithSeenBy?.map(item => ({
@@ -162,6 +160,18 @@ export default function HomeScreen({
     });
     setMessagesLength(newArray?.length);
   }, [photographersMessagesId]);
+
+  const addSeenBy = item => {
+    firestore()
+      .collection('stories')
+      .doc(item.user_id)
+      .collection('seenBy')
+      .doc(uid)
+      .set({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        user: uid,
+      });
+  };
 
   return (
     <>
@@ -269,21 +279,27 @@ export default function HomeScreen({
                 }}>
                 Travel Diaries
               </Text>
-              {/* <Stories
-                AllStories={storyDataWithSeenBy}
-                userUid={uid}
-                fetchSeenBy={''}
-              /> */}
               <InstaStory
                 data={storyData}
                 duration={5}
-                onStart={item => console.log(item)}
+                onStart={item => {
+                  addSeenBy(item);
+                }}
                 onClose={item => console.log('close: ', item)}
-                customSwipeUpComponent={
-                  <View>
-                    <Text>Swipe</Text>
-                  </View>
-                }
+                // customSwipeUpComponent={
+                //   <TouchableOpacity
+                //     // onPress={onReadMore}
+                //     style={styles.readMoreWrapper}>
+                //     <View style={styles.readMore}>
+                //       <SwipeUpIcon
+                //         name="chevron-triple-up"
+                //         size={30}
+                //         color="white"
+                //       />
+                //     </View>
+                //     <Text style={styles.readText}>See More</Text>
+                //   </TouchableOpacity>
+                // }
                 unPressedBorderColor={Colors.blue}
                 pressedBorderColor={'rgba(128,128,128,0.5)'}
                 avatarSize={65}
@@ -530,4 +546,25 @@ const styles = StyleSheet.create({
   storiesContainer1: {
     marginTop: 10,
   },
+  readMore: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  readText: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginLeft: 12,
+    color: 'white',
+    marginTop: 8,
+    textTransform: 'capitalize',
+  },
+  // readMoreWrapper: {
+  //   position: 'absolute',
+  //   bottom: 0,
+  //   width: '98%',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  // },
 });

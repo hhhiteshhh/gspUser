@@ -634,7 +634,9 @@ const BookingCard = ({navigation, data, status}) => {
                     color: data?.photosUploaded ? Colors.blue : 'red',
                     lineHeight: 22,
                   }}>
-                  {data?.photosUploaded ? 'View Photos' : 'Yet to upload photos'}
+                  {data?.photosUploaded
+                    ? 'View Photos'
+                    : 'Yet to upload photos'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -653,7 +655,7 @@ const BookingCard = ({navigation, data, status}) => {
         }}>
         <View
           style={{
-            backgroundColor: 'gray',
+            backgroundColor: '#fff',
             borderRadius: 30,
             justifyContent: 'center',
             alignItems: 'center',
@@ -662,7 +664,7 @@ const BookingCard = ({navigation, data, status}) => {
           }}>
           <Text
             style={{
-              color: '#fff',
+              color: '#000',
               textAlign: 'center',
               fontSize: windowWidth < 390 ? 14 : 19,
               paddingLeft: 18,
@@ -670,7 +672,12 @@ const BookingCard = ({navigation, data, status}) => {
               lineHeight: 28,
             }}>
             Are you sure you want to cancel your upcoming booking for{' '}
-            <Text style={{textTransform: 'uppercase', color: '#fff'}}>
+            <Text
+              style={{
+                textTransform: 'uppercase',
+                color: '#000',
+                fontWeight: 'bold',
+              }}>
               {data?.destinationName.split(',')[0]}?
             </Text>
           </Text>
@@ -686,7 +693,7 @@ const BookingCard = ({navigation, data, status}) => {
               style={{
                 borderRadius: 10,
                 borderWidth: 1,
-                borderColor: Colors.white,
+                borderColor: '#000',
                 paddingHorizontal: 48,
                 paddingVertical: 9,
                 width: 121,
@@ -697,7 +704,7 @@ const BookingCard = ({navigation, data, status}) => {
               }}>
               <Text
                 style={{
-                  color: '#fff',
+                  color: '#000',
                   textAlign: 'center',
                   fontSize: windowWidth < 390 ? 10 : 15,
                   flexWrap: 'nowrap',
@@ -709,15 +716,15 @@ const BookingCard = ({navigation, data, status}) => {
               style={{
                 borderRadius: 10,
                 borderWidth: 1,
-                borderColor: Colors.white,
+                borderColor: 'red',
                 paddingHorizontal: 15,
                 paddingVertical: 9,
                 width: 124,
                 marginRight: 15,
               }}
               onPress={() => {
-                cancelBooking();
                 setCancelAlert(!cancelAlert);
+                cancelBooking();
               }}>
               <Text
                 style={{
