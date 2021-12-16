@@ -248,6 +248,9 @@ const AboutScreen = ({navigation, data}) => {
                   ? ''
                   : 'Name is not valid!\n*Only albhabets are allowed!',
               );
+              if (!text) {
+                setTxtNameMsg('');
+              }
             }}
             value={firstName}
           />
@@ -276,6 +279,9 @@ const AboutScreen = ({navigation, data}) => {
                   ? ''
                   : 'Name is not valid!\n*Only albhabets are allowed!',
               );
+              if (!text) {
+                setLastTxtNameMsg('');
+              }
             }}
             value={lastName}
           />
@@ -313,6 +319,9 @@ const AboutScreen = ({navigation, data}) => {
             onChangeText={text => {
               setEmail(text);
               setTxtEmailMsg(checkEmail(text) ? '' : 'Email is not valid !');
+              if (!text) {
+                setTxtEmailMsg('');
+              }
             }}
             value={email}
           />
@@ -361,11 +370,24 @@ const AboutScreen = ({navigation, data}) => {
         <TouchableOpacity
           onPress={() => {
             updateProfile();
-          }}>
+          }}
+          disabled={
+            txtEmailMsg ||
+            txtNameMsg ||
+            lastTxtNameMsg ||
+            mobileNumber.length !== 10
+          }>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
-            colors={['#0ee2e2', '#10bef4']}
+            colors={
+              txtEmailMsg ||
+              txtNameMsg ||
+              lastTxtNameMsg ||
+              mobileNumber.length !== 10
+                ? ['#d2ccc4', '#2f4353']
+                : ['#0ee2e2', '#10bef4']
+            }
             style={{
               borderRadius: 20,
               width: 141,
