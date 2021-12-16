@@ -35,7 +35,6 @@ const TabScreen = () => {
   const [recommendedDestinationData, setRecommendedDestinationData] = useState(
     [],
   );
-  const [cityData, setCityData] = useState([]);
  
   useEffect(() => {
     firestore()
@@ -108,19 +107,6 @@ const TabScreen = () => {
         });
     });
   }, [exploreScreenData]);
-  // useEffect(() => {
-  //   let data = [];
-  //   AllStories?.map((item, index) => {
-  //     firestore()
-  //       .collection('destinations')
-  //       .doc(item?.destinationId)
-  //       .onSnapshot(doc => {
-  //         data.push({...item, ...doc.data()});
-  //         setCityData(data);
-  //       });
-  //   });
-  // }, [AllStories, exploreScreenData]);
-  // console.log({AllStories});
   return (
     <Tab.Navigator
       screenOptions={{

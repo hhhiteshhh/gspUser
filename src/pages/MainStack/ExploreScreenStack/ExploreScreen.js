@@ -66,7 +66,6 @@ const ExploreScreen = ({
   }, [activeIndex, popularDestinationData, exploreScreenData]);
 
   const renderItem = ({item, index}) => {
-    console.log(item);
     return (
       <View key={index}>
         <ProgressiveImage

@@ -9,13 +9,12 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {CubeNavigationHorizontal} from 'react-native-3dcube-navigation';
 import StoryContainer from './StoryContainer';
-import firestore from '@react-native-firebase/firestore';
 import ProgressiveImage from '../ProgressiveImage';
+import firestore from '@react-native-firebase/firestore';
 
-const Stories = ({AllStories}) => {
+const Stories = ({AllStories, userUid}) => {
   const [isModelOpen, setModel] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [currentScrollValue, setCurrentScrollValue] = useState(0);
@@ -53,15 +52,14 @@ const Stories = ({AllStories}) => {
   const onScrollChange = scrollValue => {
     if (currentScrollValue > scrollValue) {
       onStoryNext(true);
-
       setCurrentScrollValue(scrollValue);
     }
     if (currentScrollValue < scrollValue) {
       onStoryPrevious();
-
       setCurrentScrollValue(scrollValue);
     }
   };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -69,14 +67,19 @@ const Stories = ({AllStories}) => {
         horizontal
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        keyExtractor={item => item.location}
+        keyExtractor={item => item.uid}
         renderItem={({item, index}) => (
           <View
             key={index}
             style={{display: 'flex', alignItems: 'center', elevation: 6}}>
             <TouchableOpacity
               key={index}
-              style={styles.container1}
+              style={[
+                styles.container1,
+                {
+                  borderColor: item?.user ? 'rgba(128,128,128,0.5)' : '#0defef',
+                },
+              ]}
               onPress={() => onStorySelect(index)}>
               {/* {loading ? (
                 <ActivityIndicator style={styles.circle} color="#0defef" />
@@ -136,7 +139,7 @@ const Stories = ({AllStories}) => {
           callBackAfterSwipe={g => onScrollChange(g)}
           ref={modalScroll}
           style={styles.container}>
-          {AllStories.map((item, index) => (
+          {AllStories?.map((item, index) => (
             <StoryContainer
               key={index}
               onClose={onStoryClose}
@@ -144,6 +147,7 @@ const Stories = ({AllStories}) => {
               onStoryPrevious={onStoryPrevious}
               user={item}
               isNewStory={index !== currentUserIndex}
+              userUid={userUid}
             />
           ))}
         </CubeNavigationHorizontal>
@@ -174,7 +178,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     padding: 4,
-    borderColor: '#0defef',
     borderWidth: 1.4,
     borderRadius: 50,
     margin: 4,

@@ -8,7 +8,6 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import firestore from '@react-native-firebase/firestore';
 import Stories from '../../../components/Stories/Stories';
 import {Colors} from '../../../colors';
@@ -42,10 +41,12 @@ export default function HomeScreen({
   const [messagesLength, setMessagesLength] = useState();
   const [storiesData, setStoriesData] = useState([]);
   const [AllStories, setAllStories] = useState([]);
+  const [seenStories, setSeenStories] = useState([]);
+  const [unseenStories, setUnseenStories] = useState([]);
 
   useEffect(() => {
     let newArray = AllStories?.filter(function (el) {
-      return el.status === 'publish';
+      return el.status === 'published';
     });
     setStoriesData(newArray);
   }, [AllStories]);
@@ -106,6 +107,28 @@ export default function HomeScreen({
         ),
     [],
   );
+  const [storyDataWithSeenBy, setstoryDataWithSeenBy] = useState();
+  useEffect(() => {
+    let seenByUser = [];
+    let notSeenByUser = [];
+    storiesData?.map(item => {
+      firestore()
+        .collection('stories')
+        .doc(item.uid)
+        .collection('seenBy')
+        .doc(uid)
+        .get()
+        .then(doc => {
+          if (doc.data()) {
+            seenByUser.push({...item, ...doc.data()});
+          } else {
+            notSeenByUser.push({...item});
+          }
+          setstoryDataWithSeenBy([...notSeenByUser, ...seenByUser]);
+        });
+    });
+  }, [AllStories, storiesData]);
+  // console.log(storyDataWithSeenBy, 'storyDataWithSeenBy');
 
   useEffect(() => {
     let data = [];
@@ -240,7 +263,11 @@ export default function HomeScreen({
                 }}>
                 Travel Diaries
               </Text>
-              <Stories AllStories={storiesData} />
+              <Stories
+                AllStories={storyDataWithSeenBy}
+                userUid={uid}
+                fetchSeenBy={''}
+              />
 
               <View
                 style={{

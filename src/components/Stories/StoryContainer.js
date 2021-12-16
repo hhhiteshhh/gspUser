@@ -16,13 +16,15 @@ import UserView from './UserView';
 import Readmore from './Readmore';
 import ProgressArray from './ProgressArray';
 import Clipboard from '@react-native-community/clipboard';
+import firestore from '@react-native-firebase/firestore';
+import firebase from '@react-native-firebase/app';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const StoryContainer = props => {
-  const {user} = props;
+  const {user, userUid, fetchSeenBy} = props;
   const {stories = []} = user || {};
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModelOpen, setModel] = useState(false);
@@ -46,7 +48,7 @@ const StoryContainer = props => {
     setCopiedText(text);
   };
 
-  const onShareRoutine = async text => {
+  const onShare = async text => {
     try {
       const result = await Share.share({
         message: text,
@@ -74,6 +76,19 @@ const StoryContainer = props => {
   };
 
   const nextStory = () => {
+    if (stories.length - 1 == currentIndex) {
+      firestore()
+        .collection('stories')
+        .doc(user.uid)
+        .collection('seenBy')
+        .doc(userUid)
+        .set({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          user: userUid,
+        });
+      setCurrentIndex(0);
+      props.onStoryNext();
+    }
     if (stories.length - 1 > currentIndex) {
       setCurrentIndex(currentIndex + 1);
       setLoaded(false);
@@ -267,7 +282,7 @@ const StoryContainer = props => {
                 }}>
                 <TouchableOpacity
                   onPress={() => {
-                    onShareRoutine(story?.url);
+                    onShare(story?.url);
                   }}>
                   <Text
                     style={{textAlign: 'center', color: '#fff', fontSize: 20}}>
