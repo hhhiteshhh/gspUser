@@ -26,6 +26,7 @@ import addBookingBg from '../../../../assets/images/bookingScreenImages/dubai.jp
 import Destination from '../../../components/Destination';
 import ProgressiveImage from '../../../components/ProgressiveImage';
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
+import LoadingPlaceholderForExploreScreen from '../../../components/LoadingPlaceholderForExploreScreen';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -41,15 +42,20 @@ const ExploreScreen = ({
   const [results, setResults] = useState(popularDestinationData);
   const [searchQuery, setSearchQuery] = useState('');
   const [focus, setFocus] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [amount, setAmount] = useState(0);
+  const [country, setCountry] = useState();
 
   var formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
   });
 
-  const [amount, setAmount] = useState(0);
-  const [country, setCountry] = useState();
-
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
   useEffect(() => {
     firestore()
       .collection('countries')
@@ -66,7 +72,6 @@ const ExploreScreen = ({
   }, [activeIndex, popularDestinationData, exploreScreenData]);
 
   const renderItem = ({item, index}) => {
-    console.log(item);
     return (
       <View key={index}>
         <ProgressiveImage
@@ -84,7 +89,20 @@ const ExploreScreen = ({
       </View>
     );
   };
-
+  const swipeRight = () => {
+    setLoading(true);
+    this._carousel.snapToItem(activeIndex + 1);
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
+  };
+  const swipeLeft = () => {
+    setLoading(true);
+    this._carousel.snapToItem(activeIndex - 1);
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
+  };
   useEffect(() => AndroidKeyboardAdjust.setAdjustPan(), []);
   const onChangeSearch = q => {
     if (q.length == 0) {
@@ -252,7 +270,13 @@ const ExploreScreen = ({
               renderItem={renderItem}
               sliderWidth={windowWidth}
               itemWidth={windowWidth}
-              onSnapToItem={index => setActiveIndex(index)}
+              onSnapToItem={index => {
+                setLoading(true);
+                setActiveIndex(index);
+                setTimeout(() => {
+                  setLoading(false);
+                }, 300);
+              }}
             />
             <View
               style={{
@@ -267,7 +291,7 @@ const ExploreScreen = ({
               }}>
               <View style={styles.navigation}>
                 <TouchableOpacity
-                  onPress={() => this._carousel.snapToItem(activeIndex - 1)}
+                  onPress={() => swipeLeft()}
                   style={{
                     padding: 12,
                     borderRadius: 10,
@@ -286,7 +310,7 @@ const ExploreScreen = ({
                   )}
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => this._carousel.snapToItem(activeIndex + 1)}
+                  onPress={() => swipeRight()}
                   style={{
                     padding: 12,
                     borderRadius: 10,
@@ -312,185 +336,196 @@ const ExploreScreen = ({
                   width: 40,
                   height: 5,
                   backgroundColor: '#636363',
-                  marginTop: 15,
+                  marginTop: 34,
                   marginLeft: 'auto',
                   marginRight: 'auto',
                   marginBottom: 20,
                   borderRadius: 10,
                 }}></View>
-              <View style={{marginLeft: 24}}>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 26,
-                    paddingBottom: 5,
-                    fontFamily: 'Jost-SemiBold',
-                    color: '#000',
-                    textTransform: 'capitalize',
-                  }}>
-                  {popularDestinationData[activeIndex]?.cityName}
-                  <Text
-                    style={{
-                      color: Colors.blackLogoText,
-                      fontSize: windowWidth < 370 ? 12 : 18,
-                      fontFamily: 'Jost-Medium',
-                      textTransform: 'uppercase',
-                    }}>
-                    {' '}
-                    {country?.countryName}
-                  </Text>
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    marginRight: 55,
-                    fontWeight: '400',
-                    fontFamily: 'Jost-Medium',
-                    color: '#000',
-                  }}>
-                  {popularDestinationData[activeIndex]?.description}
-                </Text>
-              </View>
-
-              <View style={{marginLeft: 24, marginTop: 15}}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '500',
-                    fontFamily: 'Jost-Bold',
-                    lineHeight: 20,
-                    marginBottom: 10,
-                    color: '#000',
-                  }}>
-                  A perfect Destination for:
-                </Text>
-                {popularDestinationData[
-                  activeIndex
-                ]?.perfectDestinationFor?.map((destination, id) => (
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      color: Colors.blue,
-                      fontWeight: '500',
-                      lineHeight: 26,
-                      fontFamily: 'Jost-Medium',
-                      textTransform: 'capitalize',
-                    }}
-                    key={id}>
-                    {destination}
-                  </Text>
-                ))}
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '500',
-                    fontFamily: 'Jost-Bold',
-                    lineHeight: 20,
-                    marginBottom: 10,
-                    marginTop: 20,
-                    color: '#000',
-                  }}>
-                  Memories created here:
-                </Text>
-                <ScrollView
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  contentContainerStyle={styles.storiesContainer1}
-                  style={{
-                    marginBottom: 20,
-                  }}>
-                  {popularDestinationData[activeIndex]?.memories.map(
-                    (memory, id) => (
-                      <View
-                        key={id}
-                        style={{
-                          borderRadius: 11,
-                          overflow: 'hidden',
-                          marginLeft: id === 0 ? 0 : 5,
-                          elevation: 2,
-                          shadowColor: '#fff',
-                          shadowOffset: {width: 0, height: 1},
-                          shadowOpacity: 1,
-                          shadowRadius: 1.41,
-                        }}>
-                        <ProgressiveImage
-                          thumbnailSource={{
-                            uri: memory,
-                          }}
-                          source={{uri: memory}}
-                          style={styles.image1}
-                          resizeMode="cover"
-                          borderRadius={11}
-                        />
-                      </View>
-                    ),
-                  )}
-                </ScrollView>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: '400',
-                    fontFamily: 'Jost-Medium',
-                    lineHeight: 20,
-                    color: '#000',
-                  }}>
-                  Package starts from:
-                </Text>
-                <Text
-                  style={{
-                    color: Colors.blue,
-                    fontSize: 22,
-                    fontWeight: '500',
-                    fontFamily: 'Jost-Medium',
-                    lineHeight: 32,
-                    marginBottom: 20,
-                  }}>
-                  INR {formatter.format(amount?.price)}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    isGuestUser === 'true'
-                      ? navigation.navigate('LoginNotice')
-                      : navigation.navigate('Location', {
-                          data: popularDestinationData[activeIndex],
-                          countryId:
-                            popularDestinationData[activeIndex].country,
-                        });
-                  }}
-                  style={{marginLeft: 'auto', marginRight: 'auto', width: 141}}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0.5, y: 0}}
-                    colors={['#0ee2e2', '#10bef4']}
-                    style={{
-                      borderRadius: 20,
-                      padding: 15,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      marginBottom: 31,
-                    }}>
+              {loading ? (
+                <>
+                  <LoadingPlaceholderForExploreScreen />
+                </>
+              ) : (
+                <>
+                  <View style={{marginLeft: 24}}>
                     <Text
                       style={{
-                        color: Colors.white,
-                        fontSize: 14,
+                        fontWeight: '600',
+                        fontSize: 26,
+                        paddingBottom: 5,
                         fontFamily: 'Jost-SemiBold',
-                        textAlign: 'center',
+                        color: '#000',
+                        textTransform: 'capitalize',
+                      }}>
+                      {popularDestinationData[activeIndex]?.cityName}
+                      <Text
+                        style={{
+                          color: Colors.blackLogoText,
+                          fontSize: windowWidth < 370 ? 12 : 18,
+                          fontFamily: 'Jost-Medium',
+                          textTransform: 'uppercase',
+                        }}>
+                        {' '}
+                        {country?.countryName}
+                      </Text>
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        marginRight: 55,
+                        fontWeight: '400',
+                        fontFamily: 'Jost-Medium',
+                        color: '#000',
+                      }}>
+                      {popularDestinationData[activeIndex]?.description}
+                    </Text>
+                  </View>
+                  <View style={{marginLeft: 24, marginTop: 15}}>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: '500',
+                        fontFamily: 'Jost-Bold',
+                        lineHeight: 20,
+                        marginBottom: 10,
+                        color: '#000',
+                      }}>
+                      A perfect Destination for:
+                    </Text>
+                    {popularDestinationData[
+                      activeIndex
+                    ]?.perfectDestinationFor?.map((destination, id) => (
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          color: Colors.blue,
+                          fontWeight: '500',
+                          lineHeight: 26,
+                          fontFamily: 'Jost-Medium',
+                          textTransform: 'capitalize',
+                        }}
+                        key={id}>
+                        {destination}
+                      </Text>
+                    ))}
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: '500',
+                        fontFamily: 'Jost-Bold',
+                        lineHeight: 20,
+                        marginBottom: 10,
+                        marginTop: 20,
+                        color: '#000',
+                      }}>
+                      Memories created here:
+                    </Text>
+                    <ScrollView
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={false}
+                      contentContainerStyle={styles.storiesContainer1}
+                      style={{
+                        marginBottom: 20,
+                      }}>
+                      {popularDestinationData[activeIndex]?.memories.map(
+                        (memory, id) => (
+                          <View
+                            key={id}
+                            style={{
+                              borderRadius: 11,
+                              overflow: 'hidden',
+                              marginLeft: id === 0 ? 0 : 5,
+                              elevation: 2,
+                              shadowColor: '#fff',
+                              shadowOffset: {width: 0, height: 1},
+                              shadowOpacity: 1,
+                              shadowRadius: 1.41,
+                            }}>
+                            <ProgressiveImage
+                              thumbnailSource={{
+                                uri: memory,
+                              }}
+                              source={{uri: memory}}
+                              style={styles.image1}
+                              resizeMode="cover"
+                              borderRadius={11}
+                            />
+                          </View>
+                        ),
+                      )}
+                    </ScrollView>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: '400',
+                        fontFamily: 'Jost-Medium',
+                        lineHeight: 20,
+                        color: '#000',
+                      }}>
+                      Package starts from:
+                    </Text>
+                    <Text
+                      style={{
+                        color: Colors.blue,
+                        fontSize: 22,
+                        fontWeight: '500',
+                        fontFamily: 'Jost-Medium',
+                        lineHeight: 32,
+                        marginBottom: 20,
+                      }}>
+                      INR {formatter.format(amount?.price)}
+                    </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        isGuestUser === 'true'
+                          ? navigation.navigate('LoginNotice')
+                          : navigation.navigate('Location', {
+                              data: popularDestinationData[activeIndex],
+                              countryId:
+                                popularDestinationData[activeIndex].country,
+                            });
+                      }}
+                      style={{
                         marginLeft: 'auto',
                         marginRight: 'auto',
+                        width: 141,
                       }}>
-                      Book Now
-                    </Text>
-                    <Icon
-                      type="antdesign"
-                      name="pluscircleo"
-                      size={15}
-                      color={Colors.white}
-                      style={{marginRight: 'auto'}}
-                    />
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 0.5, y: 0}}
+                        colors={['#0ee2e2', '#10bef4']}
+                        style={{
+                          borderRadius: 20,
+                          padding: 15,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          marginBottom: 31,
+                        }}>
+                        <Text
+                          style={{
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Jost-SemiBold',
+                            textAlign: 'center',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                          }}>
+                          Book Now
+                        </Text>
+                        <Icon
+                          type="antdesign"
+                          name="pluscircleo"
+                          size={15}
+                          color={Colors.white}
+                          style={{marginRight: 'auto'}}
+                        />
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              )}
             </View>
             <View style={{height: 50}} />
           </ScrollView>
