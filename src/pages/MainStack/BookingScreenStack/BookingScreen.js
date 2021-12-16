@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import bookingScreenBg from '../../../../assets/images/bookingScreenImages/delhi.jpeg';
 import noBookingsYet from '../../../../assets/images/bookingScreenImages/noBookingsYet.png';
 import FastImage from 'react-native-fast-image';
@@ -34,12 +35,14 @@ export default function BookingScreen({
   const [index, setIndex] = useState(1);
   const {signOut, isGuestUser} = useContext(InitialContext);
   const [id, setId] = useState();
-  const handleSignOut = () => {
-    signOut();
-  };
   const [cancelBookingsStatus, setCancelBookingsStatus] = useState([]);
   const [cancelImage, setCancelImage] = useState();
   const [completeImage, setCompleteImage] = useState();
+  const [loading, setLoading] = useState(true);
+  const handleSignOut = () => {
+    signOut();
+  };
+
   useEffect(() => {
     const dummyArray = [];
     bookingData.forEach(booking => {
@@ -63,6 +66,13 @@ export default function BookingScreen({
       });
     });
   }, []);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+
   return (
     <View style={styles.root}>
       <ImageBackground
@@ -192,7 +202,41 @@ export default function BookingScreen({
                 </Text>
               </TouchableOpacity>
             </View>
-            {index === 1 && (
+            {loading && (
+              <SkeletonPlaceholder
+                speed={1300}
+                style={{height: windowHeight, width: windowWidth}}>
+                <SkeletonPlaceholder.Item
+                  height={120}
+                  marginLeft={20}
+                  marginRight={20}
+                  marginVertical={20}
+                  borderRadius={20}
+                />
+                <SkeletonPlaceholder.Item
+                  height={120}
+                  marginLeft={20}
+                  marginRight={20}
+                  marginVertical={20}
+                  borderRadius={20}
+                />
+                <SkeletonPlaceholder.Item
+                  height={120}
+                  marginLeft={20}
+                  marginRight={20}
+                  marginVertical={20}
+                  borderRadius={20}
+                />
+                <SkeletonPlaceholder.Item
+                  height={120}
+                  marginLeft={20}
+                  marginRight={20}
+                  marginVertical={20}
+                  borderRadius={20}
+                />
+              </SkeletonPlaceholder>
+            )}
+            {!loading && index === 1 && (
               <>
                 {bookingData.length === 0 || !cancelImage ? (
                   <View
@@ -290,7 +334,7 @@ export default function BookingScreen({
                 )}
               </>
             )}
-            {index === 2 && (
+            {!loading && index === 2 && (
               <>
                 {bookingData.length == 0 || !completeImage ? (
                   <View

@@ -723,8 +723,8 @@ const BookingCard = ({navigation, data, status}) => {
                 marginRight: 15,
               }}
               onPress={() => {
-                cancelBooking();
                 setCancelAlert(!cancelAlert);
+                cancelBooking();
               }}>
               <Text
                 style={{
