@@ -220,7 +220,7 @@ const StoryContainer = props => {
             <View
               style={{
                 width: windowWidth,
-                backgroundColor: 'gray',
+                backgroundColor: '#fff',
                 borderRadius: 30,
                 alignItems: 'center',
                 marginTop: 10,
@@ -229,13 +229,13 @@ const StoryContainer = props => {
               <View
                 style={{
                   padding: 13,
-                  borderBottomColor: '#fff',
-                  borderBottomWidth: 1,
+                  borderBottomColor: '#000',
+                  borderBottomWidth: 0.7,
                   width: windowWidth,
                   marginLeft: 'auto',
                   marginRight: 'auto',
                 }}>
-                <TouchableOpacity>
+                <TouchableOpacity style={{width: windowWidth}}>
                   <Text
                     style={{textAlign: 'center', color: 'red', fontSize: 20}}>
                     Report
@@ -245,15 +245,17 @@ const StoryContainer = props => {
               <View
                 style={{
                   padding: 13,
-                  borderBottomColor: '#fff',
-                  borderBottomWidth: 1,
+                  borderBottomColor: '#000',
+                  borderBottomWidth: 0.7,
                   width: windowWidth,
                   marginLeft: 'auto',
                   marginRight: 'auto',
                 }}>
-                <TouchableOpacity onPress={() => copyToClipboard(story?.url)}>
+                <TouchableOpacity
+                  onPress={() => copyToClipboard(story?.url)}
+                  style={{width: windowWidth}}>
                   <Text
-                    style={{textAlign: 'center', color: '#fff', fontSize: 20}}>
+                    style={{textAlign: 'center', color: '#000', fontSize: 20}}>
                     Copy Link
                   </Text>
                 </TouchableOpacity>
@@ -268,9 +270,10 @@ const StoryContainer = props => {
                 <TouchableOpacity
                   onPress={() => {
                     onShareRoutine(story?.url);
-                  }}>
+                  }}
+                  style={{width: windowWidth}}>
                   <Text
-                    style={{textAlign: 'center', color: '#fff', fontSize: 20}}>
+                    style={{textAlign: 'center', color: '#000', fontSize: 20}}>
                     Share
                   </Text>
                 </TouchableOpacity>
@@ -282,14 +285,16 @@ const StoryContainer = props => {
                 width: windowWidth,
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                backgroundColor: 'gray',
+                backgroundColor: '#fff',
                 borderRadius: 30,
                 position: 'absolute',
                 bottom: 2,
               }}>
-              <TouchableOpacity onPress={onReadMoreClose}>
+              <TouchableOpacity
+                onPress={onReadMoreClose}
+                style={{width: windowWidth}}>
                 <Text
-                  style={{textAlign: 'center', color: '#fff', fontSize: 20}}>
+                  style={{textAlign: 'center', color: '#000', fontSize: 20}}>
                   Cancel
                 </Text>
               </TouchableOpacity>

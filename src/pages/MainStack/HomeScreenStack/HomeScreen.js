@@ -45,7 +45,7 @@ export default function HomeScreen({
 
   useEffect(() => {
     let newArray = AllStories?.filter(function (el) {
-      return el.status === 'publish';
+      return el.status === 'published';
     });
     setStoriesData(newArray);
   }, [AllStories]);
