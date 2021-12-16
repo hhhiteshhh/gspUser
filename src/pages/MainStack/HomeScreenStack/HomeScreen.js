@@ -20,6 +20,8 @@ import PopularSpotsPicture from '../../../components/PopularSpotsPicture';
 import StatusBarComponent from '../../../components/StatusBarComponent';
 import LoadingPlaceHolder from '../../../components/LoadingPlaceHolder';
 import ProgressiveImage from '../../../components/ProgressiveImage';
+import InstaStory from 'react-native-insta-story';
+
 const statusBarHeight = StatusBar.currentHeight;
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -54,7 +56,7 @@ export default function HomeScreen({
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2500);
   }, []);
 
   useEffect(() => {
@@ -128,7 +130,19 @@ export default function HomeScreen({
         });
     });
   }, [AllStories, storiesData]);
-  // console.log(storyDataWithSeenBy, 'storyDataWithSeenBy');
+
+  const [storyData, setStoryData] = useState([]);
+  useEffect(() => {
+    setStoryData(
+      storyDataWithSeenBy?.map(item => ({
+        user_id: item.id,
+        user_image: item.thumbnail,
+        user_name: item.title,
+        stories: item.stories,
+        user: item.user || '',
+      })),
+    );
+  }, [storyDataWithSeenBy]);
 
   useEffect(() => {
     let data = [];
@@ -180,14 +194,6 @@ export default function HomeScreen({
                     resizeMode="cover"
                     borderRadius={50}
                   />
-                  {/* <FastImage
-                    source={{
-                      uri:
-                        data?.displayPictureUrl ||
-                        'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
-                    }}
-                    style={{width: 48, height: 48, borderRadius: 50}}
-                  /> */}
                   <Text
                     style={{
                       fontSize: 14,
@@ -263,12 +269,25 @@ export default function HomeScreen({
                 }}>
                 Travel Diaries
               </Text>
-              <Stories
+              {/* <Stories
                 AllStories={storyDataWithSeenBy}
                 userUid={uid}
                 fetchSeenBy={''}
+              /> */}
+              <InstaStory
+                data={storyData}
+                duration={5}
+                onStart={item => console.log(item)}
+                onClose={item => console.log('close: ', item)}
+                customSwipeUpComponent={
+                  <View>
+                    <Text>Swipe</Text>
+                  </View>
+                }
+                unPressedBorderColor={Colors.blue}
+                pressedBorderColor={'rgba(128,128,128,0.5)'}
+                avatarSize={65}
               />
-
               <View
                 style={{
                   elevation: 3,
