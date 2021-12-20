@@ -120,7 +120,7 @@ const BookingCard = ({navigation, data, status}) => {
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: 'bold',
                     lineHeight: 22,
                     textTransform: 'capitalize',
@@ -130,6 +130,7 @@ const BookingCard = ({navigation, data, status}) => {
                   {data?.destinationName.split(',')[0]},
                   <Text
                     style={{
+                      fontSize: 15,
                       textTransform: 'uppercase',
                     }}>
                     {data?.destinationName.split(',')[1]}
@@ -160,7 +161,6 @@ const BookingCard = ({navigation, data, status}) => {
                   style={{
                     display: 'flex',
                     flexDirection: 'row',
-                    paddingVertical: 5,
                     alignItems: 'center',
                   }}>
                   <Text style={{fontSize: 10, color: '#000'}}>Booked On: </Text>
@@ -172,7 +172,7 @@ const BookingCard = ({navigation, data, status}) => {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={{position: 'absolute', right: 11, bottom: 0}}>
+              <View style={{position: 'absolute', right: 11, bottom: -10}}>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('Location', {

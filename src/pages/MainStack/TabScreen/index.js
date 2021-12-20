@@ -35,6 +35,8 @@ const TabScreen = () => {
   const [recommendedDestinationData, setRecommendedDestinationData] = useState(
     [],
   );
+  const [AllStories, setAllStories] = useState([]);
+
  
   useEffect(() => {
     firestore()
@@ -71,6 +73,18 @@ const TabScreen = () => {
         });
     }
   }, []);
+  useEffect(
+    () =>
+      firestore()
+        .collection('stories')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot(snapshot =>
+          setAllStories(
+            snapshot?.docs?.map(doc => ({id: doc.id, ...doc.data()})),
+          ),
+        ),
+    [],
+  );
   useEffect(() => {
     let newArray = bookingData.filter(function (el) {
       return el.bookingStatus !== 'cancelled';
@@ -133,6 +147,7 @@ const TabScreen = () => {
             recommendedDestinationData={recommendedDestinationData}
             chatsId={chatsId}
             uid={uid}
+            AllStories={AllStories}
           />
         )}
       </Tab.Screen>

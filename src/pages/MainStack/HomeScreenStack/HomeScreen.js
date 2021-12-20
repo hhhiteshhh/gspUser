@@ -20,7 +20,6 @@ import StatusBarComponent from '../../../components/StatusBarComponent';
 import LoadingPlaceHolder from '../../../components/LoadingPlaceHolder';
 import ProgressiveImage from '../../../components/ProgressiveImage';
 import InstaStory from 'react-native-insta-story';
-import SwipeUpIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const statusBarHeight = StatusBar.currentHeight;
 const windowWidth = Dimensions.get('window').width;
@@ -32,6 +31,7 @@ export default function HomeScreen({
   categories,
   exploreScreenData,
   // AllStories,
+  AllStories,
   // chatsId,
   uid,
 }) {
@@ -42,7 +42,7 @@ export default function HomeScreen({
   const [photographersMessagesId, setPhotographerMessagesId] = useState([]);
   const [messagesLength, setMessagesLength] = useState();
   const [storiesData, setStoriesData] = useState([]);
-  const [AllStories, setAllStories] = useState([]);
+  // const [AllStories, setAllStories] = useState([]);
   const [storyDataWithSeenBy, setstoryDataWithSeenBy] = useState();
   const [storyData, setStoryData] = useState([]);
 
@@ -56,7 +56,7 @@ export default function HomeScreen({
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 3000);
   }, []);
 
   useEffect(() => {
@@ -97,18 +97,18 @@ export default function HomeScreen({
         });
     }
   }, [exploreScreenData]);
-  useEffect(
-    () =>
-      firestore()
-        .collection('stories')
-        .orderBy('timestamp', 'desc')
-        .onSnapshot(snapshot =>
-          setAllStories(
-            snapshot?.docs?.map(doc => ({id: doc.id, ...doc.data()})),
-          ),
-        ),
-    [],
-  );
+  // useEffect(
+  //   () =>
+  //     firestore()
+  //       .collection('stories')
+  //       .orderBy('timestamp', 'desc')
+  //       .onSnapshot(snapshot =>
+  //         setAllStories(
+  //           snapshot?.docs?.map(doc => ({id: doc.id, ...doc.data()})),
+  //         ),
+  //       ),
+  //   [],
+  // );
   useEffect(() => {
     let seenByUser = [];
     let notSeenByUser = [];
@@ -162,15 +162,17 @@ export default function HomeScreen({
   }, [photographersMessagesId]);
 
   const addSeenBy = item => {
-    firestore()
-      .collection('stories')
-      .doc(item.user_id)
-      .collection('seenBy')
-      .doc(uid)
-      .set({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        user: uid,
-      });
+    if (uid) {
+      firestore()
+        .collection('stories')
+        .doc(item.user_id)
+        .collection('seenBy')
+        .doc(uid)
+        .set({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          user: uid,
+        });
+    }
   };
 
   return (
