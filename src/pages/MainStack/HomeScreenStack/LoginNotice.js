@@ -32,23 +32,16 @@ const LoginNotice = ({navigation}) => {
       <View
         style={{
           position: 'absolute',
-          top: statusBarHeight * 1.5,
+          top: statusBarHeight * 1.25,
           width: windowWidth,
           flexDirection: 'row',
           alignItems: 'center',
+          zIndex: 999,
         }}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={{marginLeft: 20}}>
-          <Icon
-            type="antdesign"
-            name="left"
-            size={25}
-            color={Colors.white}
-            style={{marginTop: 5}}
-          />
+          style={{marginLeft: 20, padding: 0}}
+          onPress={() => navigation.goBack()}>
+          <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
       </View>
       <View

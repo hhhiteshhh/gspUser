@@ -33,6 +33,7 @@ const BrowseCategories = ({
             fontWeight: '700',
             marginLeft: -17,
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           {route?.params?.name ? route.params.name : 'Browse Category'}
         </Text>

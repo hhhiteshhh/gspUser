@@ -32,6 +32,7 @@ const ChooseCategory = ({
             fontWeight: '700',
             marginLeft: -17,
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           Choose Category
         </Text>

@@ -83,6 +83,7 @@ function Location({navigation, route, isGuestUser}) {
             lineHeight: 26.4,
             fontWeight: '700',
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           {route.params.data.cityName}{' '}
           <Text
@@ -133,7 +134,6 @@ function Location({navigation, route, isGuestUser}) {
               source={{uri: image}}
               resizeMode="cover"
             />
-          
           </View>
         ))}
       </Swiper>
@@ -191,7 +191,6 @@ function Location({navigation, route, isGuestUser}) {
                   borderRadius={11}
                   // elevation={10}
                 />
-             
               </View>
             ))}
           </ScrollView>

@@ -241,11 +241,11 @@ function MyTabBar({navigation, bookingNotifications, ...props}) {
         overflow: 'hidden',
         marginLeft: 'auto',
         marginRight: 'auto',
-        // backgroundColor: '#fff',
-        elevation: 1,
-        shadowColor: 'rgba(0,0,0,0.5)',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 1,
+        backgroundColor: '#fff',
+        elevation: 15,
+        shadowColor: 'rgba(0,0,0,1)',
+        shadowOffset: {width: 1, height: 1},
+        shadowOpacity: 1.4,
         shadowRadius: 10,
       }}>
       {iconList.map((data, index) => (

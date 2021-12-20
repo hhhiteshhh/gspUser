@@ -60,6 +60,7 @@ const AboutScreen = ({navigation, data}) => {
             fontWeight: '700',
             marginLeft: -17,
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           Edit
         </Text>

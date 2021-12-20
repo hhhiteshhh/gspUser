@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -29,13 +29,12 @@ const CategoryPage = ({navigation, route, isGuestUser}) => {
     currency: 'INR',
   });
 
-
   return (
     <>
       <View
         style={{
           position: 'absolute',
-          top:  statusBarHeight * 1.25,
+          top: statusBarHeight * 1.25,
           width: windowWidth,
           flexDirection: 'row',
           alignItems: 'center',
@@ -54,6 +53,7 @@ const CategoryPage = ({navigation, route, isGuestUser}) => {
             lineHeight: 26.4,
             fontWeight: '700',
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           {route?.params?.data?.categoryName}
         </Text>
@@ -141,7 +141,6 @@ const CategoryPage = ({navigation, route, isGuestUser}) => {
                   borderRadius={11}
                   // elevation={10}
                 />
-           
               </View>
             ))}
           </ScrollView>

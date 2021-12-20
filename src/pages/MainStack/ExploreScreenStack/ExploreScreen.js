@@ -190,7 +190,7 @@ const ExploreScreen = ({
                   display: 'flex',
                   flexDirection: 'row',
                   marginLeft: windowWidth < 390 ? 20 : 0,
-                  marginTop: 5 * statusBarHeight,
+                  marginTop: 5 * statusBarHeight + 20,
                 }}>
                 {results?.map((city, id) => (
                   <TouchableOpacity

@@ -51,6 +51,7 @@ const ChatRoom = ({navigation, route, uid}) => {
               fontWeight: '700',
               marginLeft: 15,
               padding: 0,
+              textTransform: 'capitalize',
             }}>
             {recipient?.firstName
               ? `${recipient?.firstName} ${recipient?.lastName}`

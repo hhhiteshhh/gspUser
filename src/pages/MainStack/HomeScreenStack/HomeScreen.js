@@ -295,7 +295,7 @@ export default function HomeScreen({
               <View
                 style={{
                   elevation: 10,
-                  // width: windowWidth,
+                  // width: windowWidth * 0.5,
                   marginHorizontal: 5,
                   // borderColor: 'red',
                   marginTop: 20,
@@ -379,7 +379,8 @@ export default function HomeScreen({
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={styles.storiesContainer}>
+                    contentContainerStyle={styles.storiesContainer}
+                    fadingEdgeLength={20}>
                     {categories?.map((category, index) => {
                       return (
                         <Categories
@@ -542,9 +543,11 @@ const styles = StyleSheet.create({
   storiesContainer: {
     alignItems: 'center',
     backgroundColor: Colors.white,
-    paddingLeft: 15,
-    paddingRight: 10,
+    // paddingLeft: 15,
+    // paddingRight: 10,
     borderWidth: 3,
+    // marginLeft: 15,
+    marginRight: 15,
   },
   storiesContainer1: {
     marginTop: 10,

@@ -39,6 +39,7 @@ const ChatScreen = ({navigation, bookingData, uid}) => {
             fontWeight: '700',
             marginLeft: -17,
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           Chat
         </Text>

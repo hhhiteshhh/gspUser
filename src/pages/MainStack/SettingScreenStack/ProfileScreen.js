@@ -30,6 +30,7 @@ const ProfileScreen = ({navigation, data}) => {
             fontWeight: '700',
             marginLeft: -17,
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           Profile
         </Text>
@@ -88,7 +89,6 @@ const ProfileScreen = ({navigation, data}) => {
               width: 216,
               height: 216,
               borderRadius: 200,
-              elevation: 4,
               opacity: 4,
             }}
             resizeMode="cover"
@@ -96,7 +96,10 @@ const ProfileScreen = ({navigation, data}) => {
             elevation={4}
           />
 
-          <TouchableOpacity onPress={() => navigation.navigate('AboutScreen')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('AboutScreen')}
+            style={{ marginTop: 8 }}
+          >
             <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}

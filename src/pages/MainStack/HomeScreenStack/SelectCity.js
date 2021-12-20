@@ -42,6 +42,7 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
             fontWeight: '700',
             marginLeft: -17,
             padding: 0,
+            textTransform: 'capitalize',
           }}>
           Select City
         </Text>
