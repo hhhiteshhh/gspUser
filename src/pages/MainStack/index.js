@@ -110,7 +110,7 @@ function MainStack({props}) {
   return (
     <Stack.Navigator>
       <Stack.Screen name="HomePage" options={{headerShown: false}}>
-        {props => <TabScreen />}
+        {props => <TabScreen {...props} />}
       </Stack.Screen>
       <Stack.Screen name="BrowseCategories" options={{headerShown: true}}>
         {props => (

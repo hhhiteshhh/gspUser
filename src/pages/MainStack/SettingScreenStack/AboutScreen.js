@@ -18,6 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Loader from '../../../components/Loader';
 import Icon from 'react-native-easy-icon';
 import REGEX from '../../../const/regularExp';
+import ProgressiveImage from '../../../components/ProgressiveImage';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const AboutScreen = ({navigation, data}) => {
@@ -57,7 +58,7 @@ const AboutScreen = ({navigation, data}) => {
             fontSize: 22,
             lineHeight: 26.4,
             fontWeight: '700',
-            marginLeft: -13,
+            marginLeft: -17,
             padding: 0,
           }}>
           Edit
@@ -65,10 +66,7 @@ const AboutScreen = ({navigation, data}) => {
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={{
-            marginLeft: 20,
-            padding: 0,
-          }}
+          style={{marginLeft: 20, padding: 0}}
           onPress={() => navigation.goBack()}>
           <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
@@ -202,7 +200,16 @@ const AboutScreen = ({navigation, data}) => {
               <Loader color={Colors.blue} size={50} />
             </View>
           ) : (
-            <FastImage
+            <ProgressiveImage
+              thumbnailSource={{
+                uri: response?.didCancel
+                  ? data?.displayPictureUrl ||
+                    'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad'
+                  : response?.assets[0]
+                  ? response?.assets[0]?.uri
+                  : data?.displayPictureUrl ||
+                    'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
+              }}
               source={{
                 uri: response?.didCancel
                   ? data?.displayPictureUrl ||
@@ -212,14 +219,34 @@ const AboutScreen = ({navigation, data}) => {
                   : data?.displayPictureUrl ||
                     'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
               }}
-              resizeMode="cover"
               style={{
                 width: '100%',
                 paddingTop: 400,
                 overflow: 'hidden',
                 height: windowHeight * 0.5,
               }}
+              resizeMode="cover"
+              // borderRadius={200}
+              // elevation={4}
             />
+            // <FastImage
+            //   source={{
+            //     uri: response?.didCancel
+            //       ? data?.displayPictureUrl ||
+            //         'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad'
+            //       : response?.assets[0]
+            //       ? response?.assets[0]?.uri
+            //       : data?.displayPictureUrl ||
+            //         'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
+            //   }}
+            //   resizeMode="cover"
+            //   style={{
+            //     width: '100%',
+            //     paddingTop: 400,
+            //     overflow: 'hidden',
+            //     height: windowHeight * 0.5,
+            //   }}
+            // />
           )}
         </TouchableOpacity>
 

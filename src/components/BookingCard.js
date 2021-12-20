@@ -9,7 +9,6 @@ import {
   Platform,
   Animate,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Colors} from '../colors';
 import Icon from 'react-native-easy-icon';
 import Modal from 'react-native-modal';
@@ -102,15 +101,6 @@ const BookingCard = ({navigation, data, status}) => {
                 borderRadius={11}
                 elevation={10}
               />
-              {/* <FastImage
-                source={{uri: locationData?.displayPhotoUrl}}
-                style={{
-                  width: 126,
-                  height: 102,
-                  borderRadius: 10,
-                  flex: 0.4,
-                }}
-              /> */}
               <View
                 style={{
                   paddingLeft: 20,
@@ -397,16 +387,6 @@ const BookingCard = ({navigation, data, status}) => {
               resizeMode="cover"
               borderRadius={10}
             />
-            {/* <FastImage
-              source={{uri: locationData?.displayPhotoUrl}}
-              style={{
-                width: 75,
-                height: 84,
-                borderRadius: 10,
-                flex: 0.4,
-                resizeMode: 'contain',
-              }}
-            /> */}
             <View
               style={{
                 paddingLeft: 10,
@@ -535,11 +515,6 @@ const BookingCard = ({navigation, data, status}) => {
             resizeMode="cover"
             borderRadius={10}
           />
-
-          {/* <FastImage
-            source={{uri: locationData?.displayPhotoUrl}}
-            style={{width: 75, height: 84, borderRadius: 10, flex: 0.4}}
-          /> */}
           <View
             style={{
               paddingLeft: 10,

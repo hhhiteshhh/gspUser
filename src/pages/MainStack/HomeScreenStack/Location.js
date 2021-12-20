@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import {Colors} from '../../../colors/index';
-import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-easy-icon';
 import LinearGradient from 'react-native-linear-gradient';
 import StatusBarComponent from '../../../components/StatusBarComponent';
@@ -65,39 +64,35 @@ function Location({navigation, route, isGuestUser}) {
       <View
         style={{
           position: 'absolute',
-          top: statusBarHeight,
+          top: statusBarHeight * 1.25,
           width: windowWidth,
           flexDirection: 'row',
           alignItems: 'center',
           zIndex: 999,
         }}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={{marginLeft: 20}}>
-          <Icon
-            type="antdesign"
-            name="left"
-            size={25}
-            color={Colors.blackLogoText}
-            style={{marginTop: 5}}
-          />
+          style={{marginLeft: 20, padding: 0}}
+          onPress={() => navigation.goBack()}>
+          <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
         <Text
           style={{
             color: Colors.blackLogoText,
-            fontSize: windowWidth < 370 ? 22 : 32,
             fontFamily: 'Jost-SemiBold',
-            marginLeft: 10,
-            textTransform: 'capitalize',
+            fontSize: 22,
+            lineHeight: 26.4,
+            fontWeight: '700',
+            padding: 0,
           }}>
           {route.params.data.cityName}{' '}
           <Text
             style={{
               color: Colors.blackLogoText,
-              fontSize: windowWidth < 370 ? 12 : 18,
-              fontFamily: 'Jost-Medium',
+              fontFamily: 'Jost-SemiBold',
+              fontSize: 15,
+              lineHeight: 26.4,
+              fontWeight: '700',
+              padding: 0,
               textTransform: 'uppercase',
             }}>
             {country?.countryName}
@@ -138,24 +133,7 @@ function Location({navigation, route, isGuestUser}) {
               source={{uri: image}}
               resizeMode="cover"
             />
-            {/* {loading ? (
-              <ActivityIndicator
-                style={{
-                  width: windowWidth,
-                  height: windowHeight * 0.65,
-                }}
-                color="#0defef"
-              />
-            ) : (
-              <FastImage
-                resizeMode={'cover'}
-                style={{
-                  width: windowWidth,
-                  height: windowHeight * 0.65,
-                }}
-                source={{uri: image}}
-              />
-            )} */}
+          
           </View>
         ))}
       </Swiper>
@@ -213,11 +191,7 @@ function Location({navigation, route, isGuestUser}) {
                   borderRadius={11}
                   // elevation={10}
                 />
-                {/* <FastImage
-                  key={id}
-                  style={styles.image1}
-                  source={{uri: destination}}
-                /> */}
+             
               </View>
             ))}
           </ScrollView>

@@ -24,7 +24,14 @@ const PaymentConfirm = ({navigation}) => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'HomePage'}],
+          routes: [
+            {
+              name: 'HomePage',
+              params: {
+                bookingScreen: true,
+              },
+            },
+          ],
         }),
       );
     }, 3500);

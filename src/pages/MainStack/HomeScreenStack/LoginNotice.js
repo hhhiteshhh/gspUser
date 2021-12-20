@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect} from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   Text,

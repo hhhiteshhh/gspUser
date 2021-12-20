@@ -17,7 +17,6 @@ const ChooseCategory = ({
   route,
   categories,
 }) => {
-
   const [id, setID] = useState();
   const [selected, setSelected] = useState(false);
   useLayoutEffect(() => {

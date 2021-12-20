@@ -24,18 +24,21 @@ export default function SettingScreen({navigation, isGuestUser}) {
       />
       <Text
         style={{
-          fontWeight: '700',
-          fontSize: 22,
-          lineHeight: 32,
-          marginTop: 2 * statusBarHeight,
-          marginBottom: statusBarHeight,
           color: Colors.white,
-          fontFamily: 'Jost-Medium',
-          marginLeft: 18,
+          fontFamily: 'Jost-SemiBold',
+          fontSize: 22,
+          marginTop: 1.5 * statusBarHeight,
+          paddingLeft: 18,
         }}>
         Settings
       </Text>
-      <View style={{display: 'flex', justifyContent: 'space-between', flex: 1}}>
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flex: 1,
+          marginTop: 22,
+        }}>
         {isGuestUser !== 'true' && (
           <View>
             <SettingsOptions

@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
-// import first from '../../assets/onboardingImages/screen1.png';
 import firestore from '@react-native-firebase/firestore';
+import ProgressiveImage from './ProgressiveImage';
 
 const Chat = ({data, navigation, uid}) => {
   const [recipient, setRecipient] = useState();
@@ -53,13 +52,21 @@ const Chat = ({data, navigation, uid}) => {
             sender: sender,
           });
         }}>
-        <FastImage
+        <ProgressiveImage
+          thumbnailSource={{
+            uri:
+              recipient?.displayPictureUrl ||
+              'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
+          }}
           source={{
             uri:
               recipient?.displayPictureUrl ||
               'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
           }}
           style={{width: 25, height: 25, borderRadius: 50}}
+          // resizeMode="cover"
+          borderRadius={50}
+          // elevation={10}
         />
         <View style={{marginLeft: 5}}>
           <Text

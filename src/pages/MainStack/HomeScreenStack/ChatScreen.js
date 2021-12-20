@@ -37,7 +37,7 @@ const ChatScreen = ({navigation, bookingData, uid}) => {
             fontSize: 22,
             lineHeight: 26.4,
             fontWeight: '700',
-            marginLeft: 0,
+            marginLeft: -17,
             padding: 0,
           }}>
           Chat

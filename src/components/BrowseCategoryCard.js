@@ -4,6 +4,7 @@ import {Colors} from '../colors';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
 import firestore from '@react-native-firebase/firestore';
+import ProgressiveImage from './ProgressiveImage';
 
 const BrowseCategoryCard = ({
   category,
@@ -39,6 +40,14 @@ const BrowseCategoryCard = ({
         borderColor: explore && id === index ? Colors.blue : 'transparent',
         height: 150,
       }}>
+      {/* <ProgressiveImage
+        thumbnailSource={{
+          uri: category?.displayImages[0],
+        }}
+        style={styles.image}
+        source={{uri: category?.displayImages[0]}}
+        resizeMode="cover"
+      /> */}
       <FastImage
         source={{uri: category?.displayImages[0]}}
         style={styles.image}>
@@ -80,55 +89,57 @@ const BrowseCategoryCard = ({
             }}>
             {category?.description}
           </Text>
-          {!explore && (
-            <TouchableOpacity
-              style={{
-                width: 140,
-                position: 'absolute',
-                bottom: 10,
-                left: 11,
-              }}
-              onPress={() => {
-                if (isGuestUser == 'true') {
-                  navigation.navigate('LoginNotice');
-                } else {
-                  seeMore || !explore
-                    ? navigation.navigate('CategoryPage', {
-                        data: category,
-                        amount: categoryData,
-                      })
-                    : navigation.navigate('SelectCity', {
-                        event: category.categoryName,
-                        eventSelected: true,
-                      });
-                }
-              }}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                colors={['#0ee2e2', '#10bef4']}
-                style={{
-                  borderRadius: 10,
-                }}>
-                <Text
-                  style={{
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontFamily: 'Jost-SemiBold',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    paddingLeft: 27,
-                    paddingRight: 27,
-                    paddingVertical: 4,
-                    textTransform: 'capitalize',
-                  }}>
-                  Book Now
-                </Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          )}
         </LinearGradient>
       </FastImage>
+      {!explore && (
+        <TouchableOpacity
+          style={{
+            width: 140,
+            position: 'absolute',
+            bottom: 10,
+            left: 11,
+            zIndex: 999,
+          }}
+          onPress={() => {
+            if (isGuestUser == 'true') {
+              navigation.navigate('LoginNotice');
+            } else {
+              seeMore || !explore
+                ? navigation.navigate('CategoryPage', {
+                    data: category,
+                    amount: categoryData,
+                  })
+                : navigation.navigate('SelectCity', {
+                    event: category.categoryName,
+                    eventSelected: true,
+                  });
+            }
+          }}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={['#0ee2e2', '#10bef4']}
+            style={{
+              borderRadius: 10,
+              zIndex: 999,
+            }}>
+            <Text
+              style={{
+                color: Colors.white,
+                fontSize: 15,
+                fontFamily: 'Jost-SemiBold',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                paddingLeft: 27,
+                paddingRight: 27,
+                paddingVertical: 4,
+                textTransform: 'capitalize',
+              }}>
+              Book Now
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

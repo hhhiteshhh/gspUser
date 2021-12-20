@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import {Colors} from '../../../colors/index';
-import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-easy-icon';
 import LinearGradient from 'react-native-linear-gradient';
 import 'intl';
@@ -24,84 +23,37 @@ const statusBarHeight = StatusBar.currentHeight;
 
 const CategoryPage = ({navigation, route, isGuestUser}) => {
   const [clammped, setClammped] = useState(true);
-  const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState(route?.params?.amount.price);
   var formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
   });
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  });
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: props => (
-        <View
-          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <Text
-            {...props}
-            style={{
-              color: Colors.blackLogoText,
-              fontSize: windowWidth < 370 ? 22 : 32,
-              fontFamily: 'Jost-SemiBold',
-              marginLeft: -10,
-              color: '#000',
-              textTransform: 'capitalize',
-            }}>
-            {route?.params?.data?.categoryName}
-          </Text>
-        </View>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{marginLeft: 20, padding: 0}}
-          onPress={() => navigation.goBack()}>
-          <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
-        </TouchableOpacity>
-      ),
 
-      // headerStyle: {
-      //   backgroundColor: Colors.base,
-      //   elevation: 0,
-      //   shadowOpacity: 0,
-      //   shadowRadius: 0,
-      // },
-    });
-  }, [navigation]);
+
   return (
     <>
       <View
         style={{
           position: 'absolute',
-          top: statusBarHeight * 1.5,
+          top:  statusBarHeight * 1.25,
           width: windowWidth,
           flexDirection: 'row',
           alignItems: 'center',
           zIndex: 999,
         }}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={{marginLeft: 20}}>
-          <Icon
-            type="antdesign"
-            name="left"
-            size={25}
-            color={Colors.blackLogoText}
-            style={{marginTop: 5}}
-          />
+          style={{marginLeft: 20, padding: 0}}
+          onPress={() => navigation.goBack()}>
+          <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
         <Text
           style={{
             color: Colors.blackLogoText,
-            fontSize: windowWidth < 370 ? 22 : 32,
             fontFamily: 'Jost-SemiBold',
-            marginLeft: 10,
-            color: '#000',
-            textTransform: 'capitalize',
+            fontSize: 22,
+            lineHeight: 26.4,
+            fontWeight: '700',
+            padding: 0,
           }}>
           {route?.params?.data?.categoryName}
         </Text>
@@ -140,24 +92,6 @@ const CategoryPage = ({navigation, route, isGuestUser}) => {
               source={{uri: image}}
               resizeMode="cover"
             />
-            {/* {loading ? (
-              <ActivityIndicator
-                style={{
-                  width: windowWidth,
-                  height: windowHeight * 0.65,
-                }}
-                color="#0defef"
-              />
-            ) : (
-              <FastImage
-                resizeMode={'cover'}
-                style={{
-                  width: windowWidth,
-                  height: windowHeight * 0.65,
-                }}
-                source={{uri: image}}
-              />
-            )} */}
           </View>
         ))}
       </Swiper>
@@ -207,11 +141,7 @@ const CategoryPage = ({navigation, route, isGuestUser}) => {
                   borderRadius={11}
                   // elevation={10}
                 />
-                {/* <FastImage
-                  key={id}
-                  style={styles.image1}
-                  source={{uri: destination}}
-                /> */}
+           
               </View>
             ))}
           </ScrollView>

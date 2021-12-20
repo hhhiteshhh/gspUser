@@ -40,7 +40,7 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
             fontSize: 22,
             lineHeight: 26.4,
             fontWeight: '700',
-            marginLeft: -13,
+            marginLeft: -17,
             padding: 0,
           }}>
           Select City
@@ -48,10 +48,7 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={{
-            marginLeft: 20,
-            padding: 0,
-          }}
+          style={{marginLeft: 20, padding: 0}}
           onPress={() => navigation.goBack()}>
           <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
@@ -257,6 +254,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 20,
     elevation: 6,
+    marginTop: 7,
+    zIndex: 999,
   },
   container: {
     flex: 1.0,

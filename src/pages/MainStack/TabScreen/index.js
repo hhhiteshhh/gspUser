@@ -12,7 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 const windowWidth = Dimensions.get('window').width;
 
 const Tab = createBottomTabNavigator();
-const TabScreen = () => {
+const TabScreen = props => {
   const {ready, user, isGuestUser} = useContext(InitialContext);
   const uid = user?._user?.uid;
   const [data, setData] = useState('');
@@ -25,7 +25,6 @@ const TabScreen = () => {
       return subscribe;
     }
   }, []);
-
   const [categories, setCategories] = useState([]);
   const [exploreScreenData, setExploreScreenData] = useState([]);
   const [bookingData, setBookingData] = useState([]);
@@ -37,7 +36,6 @@ const TabScreen = () => {
   );
   const [AllStories, setAllStories] = useState([]);
 
- 
   useEffect(() => {
     firestore()
       .collection('categories')
@@ -123,6 +121,9 @@ const TabScreen = () => {
   }, [exploreScreenData]);
   return (
     <Tab.Navigator
+      initialRouteName={
+        props?.route?.params?.bookingScreen ? 'BookingScreen' : 'HomeScreen'
+      }
       screenOptions={{
         tabBarHideOnKeyboard: true,
       }}
@@ -240,6 +241,12 @@ function MyTabBar({navigation, bookingNotifications, ...props}) {
         overflow: 'hidden',
         marginLeft: 'auto',
         marginRight: 'auto',
+        // backgroundColor: '#fff',
+        elevation: 1,
+        shadowColor: 'rgba(0,0,0,0.5)',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 1,
+        shadowRadius: 10,
       }}>
       {iconList.map((data, index) => (
         <TouchableOpacity
@@ -251,6 +258,7 @@ function MyTabBar({navigation, bookingNotifications, ...props}) {
             height: '100%',
             alignItems: 'center',
             justifyContent: 'center',
+            // backgroundColor: '#fff',
           }}>
           <Icon
             type={data.type}

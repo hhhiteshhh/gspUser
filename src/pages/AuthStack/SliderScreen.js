@@ -12,7 +12,6 @@ import {Colors} from '../../colors';
 import first from '../../../assets/images/onboardingImages/screen1.jpg';
 import second from '../../../assets/images/onboardingImages/screen2.jpg';
 import third from '../../../assets/images/onboardingImages/screen3.jpg';
-import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-easy-icon';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
@@ -107,14 +106,7 @@ export default function SliderScreen({navigation}) {
               source={data.path}
               resizeMode="cover"
             />
-            {/* <FastImage
-              resizeMode={'cover'}
-              style={{
-                width: windowWidth,
-                height: windowHeight + statusBarHeight,
-              }}
-              source={data.path}
-            /> */}
+       
             <View style={styles.sliderTextContainer}>
               {data.index === 0 && (
                 <View style={styles.card}>

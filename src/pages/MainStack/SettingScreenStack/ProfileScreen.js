@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import profileBg from '../../../../assets/images/settingScreenImages/profileBackground.jpeg';
-import FastImage from 'react-native-fast-image';
 import {Colors} from '../../../colors';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-easy-icon';
 import SettingsOptions from '../../../components/SettingsOptions';
+import ProgressiveImage from '../../../components/ProgressiveImage';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -28,7 +28,7 @@ const ProfileScreen = ({navigation, data}) => {
             fontSize: 22,
             lineHeight: 26.4,
             fontWeight: '700',
-            marginLeft: -13,
+            marginLeft: -17,
             padding: 0,
           }}>
           Profile
@@ -36,10 +36,7 @@ const ProfileScreen = ({navigation, data}) => {
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={{
-            marginLeft: 20,
-            padding: 0,
-          }}
+          style={{marginLeft: 20, padding: 0}}
           onPress={() => navigation.goBack()}>
           <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
@@ -76,13 +73,17 @@ const ProfileScreen = ({navigation, data}) => {
               : data?.phoneNumber?.slice(2)}
           </Text>
 
-          <FastImage
+          <ProgressiveImage
+            thumbnailSource={{
+              uri:
+                data?.displayPictureUrl ||
+                'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
+            }}
             source={{
               uri:
                 data?.displayPictureUrl ||
                 'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
             }}
-            resizeMode="cover"
             style={{
               width: 216,
               height: 216,
@@ -90,7 +91,9 @@ const ProfileScreen = ({navigation, data}) => {
               elevation: 4,
               opacity: 4,
             }}
-            resizeMethod="scale"
+            resizeMode="cover"
+            borderRadius={200}
+            elevation={4}
           />
 
           <TouchableOpacity onPress={() => navigation.navigate('AboutScreen')}>

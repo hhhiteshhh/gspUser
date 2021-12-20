@@ -30,7 +30,7 @@ export default function BookingScreen({
   bookingNotifications,
 }) {
   const [changesAlert, setChangesAlert] = useState(
-    bookingNotifications.length > 0 ? true : false,
+    bookingNotifications?.length > 0 ? true : false,
   );
   const [index, setIndex] = useState(1);
   const {signOut, isGuestUser} = useContext(InitialContext);

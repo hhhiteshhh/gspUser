@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import firestore from '@react-native-firebase/firestore';
 import ProgressiveImage from './ProgressiveImage';
 const Categories = ({category, navigation}) => {
@@ -43,16 +42,6 @@ const Categories = ({category, navigation}) => {
         borderRadius={11}
         elevation={10}
       />
-      {/* <FastImage
-        source={{uri: category.displayImages[0]}}
-        resizeMode="cover"
-        style={{
-          width: 101,
-          height: 69,
-          borderRadius: 11,
-          elevation: 10,
-        }}
-      /> */}
       <Text
         style={{
           textAlign: 'center',

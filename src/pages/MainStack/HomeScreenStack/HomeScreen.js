@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useLayoutEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -288,30 +288,19 @@ export default function HomeScreen({
                   addSeenBy(item);
                 }}
                 onClose={item => console.log('close: ', item)}
-                // customSwipeUpComponent={
-                //   <TouchableOpacity
-                //     // onPress={onReadMore}
-                //     style={styles.readMoreWrapper}>
-                //     <View style={styles.readMore}>
-                //       <SwipeUpIcon
-                //         name="chevron-triple-up"
-                //         size={30}
-                //         color="white"
-                //       />
-                //     </View>
-                //     <Text style={styles.readText}>See More</Text>
-                //   </TouchableOpacity>
-                // }
                 unPressedBorderColor={Colors.blue}
                 pressedBorderColor={'rgba(128,128,128,0.5)'}
                 avatarSize={65}
               />
               <View
                 style={{
-                  elevation: 3,
-                  width: windowWidth,
-                  borderColor: 'transparent',
+                  elevation: 10,
+                  // width: windowWidth,
+                  marginHorizontal: 5,
+                  // borderColor: 'red',
                   marginTop: 20,
+                  borderRadius: 15,
+                  // borderWidth: 5,
                 }}>
                 <View
                   style={{
@@ -319,7 +308,9 @@ export default function HomeScreen({
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     backgroundColor: Colors.white,
-                    width: windowWidth,
+                    // width: windowWidth,
+                    borderTopLeftRadius: 15,
+                    borderTopRightRadius: 15,
                     paddingHorizontal: 20,
                     paddingVertical: 10,
                   }}>
@@ -374,7 +365,16 @@ export default function HomeScreen({
                     />
                   </TouchableOpacity>
                 </View>
-                <View style={{width: '100%', backgroundColor: Colors.white}}>
+                <View
+                  style={{
+                    width: '100%',
+                    backgroundColor: Colors.white,
+                    borderBottomLeftRadius: 15,
+                    borderBottomRightRadius: 15,
+                    // borderWidth: 3,
+                    borderColor: Colors.white,
+                    overflow: 'hidden',
+                  }}>
                   <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -544,6 +544,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingLeft: 15,
     paddingRight: 10,
+    borderWidth: 3,
   },
   storiesContainer1: {
     marginTop: 10,

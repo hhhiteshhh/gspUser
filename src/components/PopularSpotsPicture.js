@@ -1,12 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Colors} from '../colors';
 import ProgressiveImage from './ProgressiveImage';
 
 const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
   return (
-    <View style={{backgroundColor: Colors.base}}>
+    <View>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Location', {
@@ -31,20 +30,9 @@ const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
           resizeMode="cover"
           borderRadius={20}
           marginLeft={10}
+          // elevation={1}
         />
-        {/* <FastImage
-          source={{uri: data.displayPhotoUrl}}
-          resizeMode="cover"
-          style={{
-            width: 325,
-            height: 284,
-            borderRadius: 20,
-            marginLeft: 20,
-            borderWidth: 5,
-            borderColor: Colors.white,
-            position: 'relative',
-          }}
-        /> */}
+       
         <View
           style={{
             position: 'absolute',

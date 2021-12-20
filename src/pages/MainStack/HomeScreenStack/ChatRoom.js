@@ -14,10 +14,10 @@ import {
 } from 'react-native';
 import {Colors} from '../../../colors';
 import Icon from 'react-native-easy-icon';
-import FastImage from 'react-native-fast-image';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
+import ProgressiveImage from '../../../components/ProgressiveImage';
 
 const ChatRoom = ({navigation, route, uid}) => {
   const {recipient, messagesId, photoUrl, chatId, sender} = route.params;
@@ -30,21 +30,27 @@ const ChatRoom = ({navigation, route, uid}) => {
       headerTitle: props => (
         <View
           style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <FastImage
+          <ProgressiveImage
+            thumbnailSource={{
+              uri: photoUrl,
+            }}
+            style={{width: 40, height: 42}}
             source={{uri: photoUrl}}
-            style={{width: 40, height: 42, borderRadius: 50, marginLeft: -11}}
+            resizeMode="cover"
+            borderRadius={50}
+            marginLeft={-11}
           />
+
           <Text
             {...props}
             style={{
               color: Colors.blackLogoText,
-              fontFamily: 'Jost-Bold',
+              fontFamily: 'Jost-SemiBold',
               fontSize: 16,
-              lineHeight: 26.4,
-              fontWeight: '500',
+              lineHeight: 23.4,
+              fontWeight: '700',
               marginLeft: 15,
               padding: 0,
-              textTransform: 'capitalize',
             }}>
             {recipient?.firstName
               ? `${recipient?.firstName} ${recipient?.lastName}`
@@ -54,7 +60,7 @@ const ChatRoom = ({navigation, route, uid}) => {
       ),
       headerLeft: () => (
         <TouchableOpacity
-          style={{marginLeft: 10, padding: 0}}
+          style={{marginLeft: 10, padding: 0, marginRight: 6}}
           onPress={() => navigation.goBack()}>
           <Icon type="Entypo" name="chevron-left" size={25} color={'#000'} />
         </TouchableOpacity>
@@ -159,15 +165,21 @@ const ChatRoom = ({navigation, route, uid}) => {
                       justifyContent: 'flex-start',
                     }}
                     key={id}>
-                    <FastImage
-                      source={{uri: photoUrl}}
+                    <ProgressiveImage
+                      thumbnailSource={{
+                        uri: photoUrl,
+                      }}
                       style={{
                         width: 35,
                         height: 35,
                         borderRadius: 50,
-                        marginLeft: 20,
                       }}
+                      source={{uri: photoUrl}}
+                      resizeMode="cover"
+                      borderRadius={50}
+                      marginLeft={20}
                     />
+
                     <View key={id} style={styles.sender}>
                       <Text style={styles.senderText}>{message.message}</Text>
                     </View>

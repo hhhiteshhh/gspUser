@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Colors} from '../colors';
 import Icon from 'react-native-easy-icon';
 import LinearGradient from 'react-native-linear-gradient';
@@ -31,15 +30,7 @@ export default function RecommendedTravel({
         resizeMode="cover"
         borderRadius={11}
       />
-      {/* <FastImage
-        source={{uri: RecommendedDestination?.displayPhotoUrl}}
-        resizeMode="cover"
-        style={{
-          width: 149,
-          height: 181,
-          borderRadius: 11,
-        }}
-      /> */}
+     
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}

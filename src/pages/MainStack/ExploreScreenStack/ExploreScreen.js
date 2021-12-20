@@ -143,12 +143,13 @@ const ExploreScreen = ({
             <StatusBarComponent />
             <Text
               style={{
-                fontSize: 32,
+                fontSize: 22,
                 top: 1.5 * statusBarHeight,
-                marginLeft: 24,
+                paddingLeft: 18,
                 color: Colors.white,
                 position: 'absolute',
                 zIndex: 999,
+                fontFamily: 'Jost-SemiBold',
               }}>
               Explore
             </Text>
@@ -223,12 +224,13 @@ const ExploreScreen = ({
             <StatusBarComponent />
             <Text
               style={{
-                fontSize: 32,
+                fontSize: 22,
                 top: 1.5 * statusBarHeight,
                 marginLeft: 24,
                 color: Colors.white,
                 position: 'absolute',
                 zIndex: 999,
+                fontFamily: 'Jost-SemiBold',
               }}>
               Explore
             </Text>
@@ -568,14 +570,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,1)',
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: 22,
+    marginRight: 22,
     padding: 5,
     borderRadius: 15,
     overflow: 'hidden',
     marginTop: 20,
     position: 'absolute',
-    top: 2.5 * statusBarHeight,
+    top: 1.7 * statusBarHeight + 20,
     zIndex: 999,
   },
   description: {
