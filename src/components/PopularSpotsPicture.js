@@ -12,27 +12,28 @@ const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
             data: data,
             countryId: data?.country,
           });
-        }}>
-        <ProgressiveImage
-          thumbnailSource={{
-            uri: data.displayPhotoUrl,
-          }}
-          source={{uri: data.displayPhotoUrl}}
+        }}
+        style={{paddingHorizontal: 10, overflow: 'hidden'}}>
+        <View
           style={{
-            width: 325,
-            height: 284,
             borderRadius: 20,
-            // marginLeft: 20,
             borderWidth: 5,
             borderColor: Colors.white,
-            // position: 'relative',
-          }}
-          resizeMode="cover"
-          borderRadius={20}
-          marginLeft={10}
-          // elevation={1}
-        />
-       
+            overflow: 'hidden',
+          }}>
+          <ProgressiveImage
+            thumbnailSource={{
+              uri: data.displayPhotoUrl,
+            }}
+            source={{uri: data.displayPhotoUrl}}
+            style={{
+              width: 325,
+              height: 284,
+            }}
+            resizeMode="cover"
+            // borderRadius={20}
+          />
+        </View>
         <View
           style={{
             position: 'absolute',

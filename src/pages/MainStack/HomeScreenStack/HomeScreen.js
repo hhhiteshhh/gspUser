@@ -417,7 +417,8 @@ export default function HomeScreen({
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.storiesContainer1}>
+                contentContainerStyle={styles.storiesContainer1}
+                fadingEdgeLength={1}>
                 {popularDestinationData?.map((popularSpot, id) => (
                   <PopularSpotsPicture
                     key={id - 2}

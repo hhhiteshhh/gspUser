@@ -23,7 +23,7 @@ const ProgressiveImage = props => {
       bottom: 0,
     },
     container: {
-      backgroundColor: '#fbfbff',
+      backgroundColor: '#fff',
       borderRadius: props.borderRadius,
       marginLeft: props.marginLeft,
       elevation: props.elevation,
