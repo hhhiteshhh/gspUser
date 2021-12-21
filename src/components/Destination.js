@@ -16,8 +16,8 @@ const Destination = ({
     <View
       style={{
         alignItems: 'center',
-        paddingHorizontal: photo ? 10 : 8,
-        paddingVertical: photo ? 10 : 8,
+        paddingHorizontal: 8,
+        paddingVertical: 8,
       }}>
       <ProgressiveImage
         thumbnailSource={{

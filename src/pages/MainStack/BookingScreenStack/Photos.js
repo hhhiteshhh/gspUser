@@ -20,7 +20,40 @@ const windowHeight = Dimensions.get('window').height;
 const statusBarHeight = StatusBar.currentHeight;
 
 const Photos = ({navigation, route}) => {
-  const photos = ['', '', '', '', '', '', '', ''];
+  const photos = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ];
   return (
     <View
       style={{
@@ -35,29 +68,37 @@ const Photos = ({navigation, route}) => {
         <StatusBarComponent backgroundColor="transparent" />
         <View
           style={{
-            marginTop: 1.5 * statusBarHeight,
-            display: 'flex',
+            position: 'absolute',
+            top: statusBarHeight * 1.25,
+            width: windowWidth,
             flexDirection: 'row',
             alignItems: 'center',
-            marginLeft: 20,
+            zIndex: 999,
           }}>
           <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}>
-            <Icon type="antdesign" name="left" size={20} color={Colors.white} />
+            style={{marginLeft: 20, padding: 0}}
+            onPress={() => navigation.goBack()}>
+            <Icon type="Entypo" name="chevron-left" size={25} color={'#fff'} />
           </TouchableOpacity>
           <Text
             style={{
               color: Colors.white,
               fontFamily: 'Jost-SemiBold',
-              fontSize: 24,
-              paddingLeft: 20,
+              fontSize: 22,
+              lineHeight: 26.4,
+              fontWeight: '700',
+              padding: 0,
               textTransform: 'capitalize',
             }}>
-            {route.params.name.split(',')[0]},
+            {route.params.name.split(',')[0]}
             <Text
               style={{
+                color: Colors.white,
+                fontFamily: 'Jost-SemiBold',
+                fontSize: 15,
+                lineHeight: 26.4,
+                fontWeight: '700',
+                padding: 0,
                 textTransform: 'uppercase',
               }}>
               {route.params.name.split(',')[1]}
@@ -66,8 +107,9 @@ const Photos = ({navigation, route}) => {
         </View>
         <ScrollView
           style={{
-            marginLeft: 15,
-            marginRight: 15,
+            marginLeft: 20,
+            marginRight: 20,
+            marginTop: statusBarHeight * 1.25 + 35,
           }}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}>
@@ -77,12 +119,13 @@ const Photos = ({navigation, route}) => {
               flex: 0.3,
               flexDirection: 'row',
             }}>
-            {photos.map(id => (
+            {photos.map((_,id) => (
               <TouchableOpacity key={id}>
                 <Destination id={id} photo />
               </TouchableOpacity>
             ))}
           </View>
+          <View style={{height: 50}} />
         </ScrollView>
       </ImageBackground>
     </View>

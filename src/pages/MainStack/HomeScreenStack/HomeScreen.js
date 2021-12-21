@@ -294,13 +294,10 @@ export default function HomeScreen({
               />
               <View
                 style={{
-                  elevation: 10,
-                  // width: windowWidth * 0.5,
+                  elevation: 5,
                   marginHorizontal: 5,
-                  // borderColor: 'red',
                   marginTop: 20,
                   borderRadius: 15,
-                  // borderWidth: 5,
                 }}>
                 <View
                   style={{
@@ -308,7 +305,6 @@ export default function HomeScreen({
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     backgroundColor: Colors.white,
-                    // width: windowWidth,
                     borderTopLeftRadius: 15,
                     borderTopRightRadius: 15,
                     paddingHorizontal: 20,
@@ -371,7 +367,6 @@ export default function HomeScreen({
                     backgroundColor: Colors.white,
                     borderBottomLeftRadius: 15,
                     borderBottomRightRadius: 15,
-                    // borderWidth: 3,
                     borderColor: Colors.white,
                     overflow: 'hidden',
                   }}>
@@ -544,34 +539,10 @@ const styles = StyleSheet.create({
   storiesContainer: {
     alignItems: 'center',
     backgroundColor: Colors.white,
-    // paddingLeft: 15,
-    // paddingRight: 10,
     borderWidth: 3,
-    // marginLeft: 15,
     marginRight: 15,
   },
   storiesContainer1: {
     marginTop: 10,
   },
-  readMore: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  readText: {
-    fontSize: 18,
-    fontWeight: '500',
-    marginLeft: 12,
-    color: 'white',
-    marginTop: 8,
-    textTransform: 'capitalize',
-  },
-  // readMoreWrapper: {
-  //   position: 'absolute',
-  //   bottom: 0,
-  //   width: '98%',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  // },
 });
