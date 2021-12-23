@@ -28,10 +28,6 @@ const BrowseCategoryCard = ({
   }, [category]);
   const imageAnimated = new Animated.Value(0);
   const handleImageLoad = async () => {
-    await Animated.timing(imageAnimated, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
     setShowData(true);
   };
   return (
@@ -72,9 +68,9 @@ const BrowseCategoryCard = ({
               opacity: 1,
               height: 150,
             }}>
-            <Animatable.Text
-              animation="fadeIn"
-              duration={500}
+            <Text
+              // animation="fadeIn"
+              // duration={800}
               style={{
                 fontSize: 18,
                 color: Colors.white,
@@ -86,10 +82,10 @@ const BrowseCategoryCard = ({
                 textTransform: 'capitalize',
               }}>
               {category?.categoryName}
-            </Animatable.Text>
-            <Animatable.Text
-              animation="fadeIn"
-              duration={500}
+            </Text>
+            <Text
+              // animation="fadeIn"
+              // duration={800}
               numberOfLines={2}
               ellipsizeMode="tail"
               style={{
@@ -103,60 +99,60 @@ const BrowseCategoryCard = ({
                 lineHeight: 17,
               }}>
               {category?.description}
-            </Animatable.Text>
+            </Text>
           </LinearGradient>
         )}
       </FastImage>
       {showData && !explore && (
-        <Animatable.View animation="fadeIn" duration={500}>
-          <TouchableOpacity
+        // <Animatable.View animation="fadeIn" duration={800}>
+        <TouchableOpacity
+          style={{
+            width: 140,
+            position: 'absolute',
+            bottom: 10,
+            left: 11,
+            zIndex: 999,
+          }}
+          onPress={() => {
+            if (isGuestUser == 'true') {
+              navigation.navigate('LoginNotice');
+            } else {
+              seeMore || !explore
+                ? navigation.navigate('CategoryPage', {
+                    data: category,
+                    amount: categoryData,
+                  })
+                : navigation.navigate('SelectCity', {
+                    event: category.categoryName,
+                    eventSelected: true,
+                  });
+            }
+          }}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={['#0ee2e2', '#10bef4']}
             style={{
-              width: 140,
-              position: 'absolute',
-              bottom: 10,
-              left: 11,
+              borderRadius: 10,
               zIndex: 999,
-            }}
-            onPress={() => {
-              if (isGuestUser == 'true') {
-                navigation.navigate('LoginNotice');
-              } else {
-                seeMore || !explore
-                  ? navigation.navigate('CategoryPage', {
-                      data: category,
-                      amount: categoryData,
-                    })
-                  : navigation.navigate('SelectCity', {
-                      event: category.categoryName,
-                      eventSelected: true,
-                    });
-              }
             }}>
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              colors={['#0ee2e2', '#10bef4']}
+            <Text
               style={{
-                borderRadius: 10,
-                zIndex: 999,
+                color: Colors.white,
+                fontSize: 15,
+                fontFamily: 'Jost-SemiBold',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                paddingLeft: 27,
+                paddingRight: 27,
+                paddingVertical: 4,
+                textTransform: 'capitalize',
               }}>
-              <Text
-                style={{
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontFamily: 'Jost-SemiBold',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  paddingLeft: 27,
-                  paddingRight: 27,
-                  paddingVertical: 4,
-                  textTransform: 'capitalize',
-                }}>
-                Book Now
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </Animatable.View>
+              Book Now
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+        // </Animatable.View>
       )}
     </View>
   );
