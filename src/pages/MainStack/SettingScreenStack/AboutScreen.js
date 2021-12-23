@@ -29,10 +29,10 @@ const AboutScreen = ({navigation, data}) => {
   const [response, setResponse] = React.useState(null);
   const {ready, user, isGuestUser} = useContext(InitialContext);
   const [isUploading, setIsUploading] = useState(false);
-  const [txtEmailMsg, setTxtEmailMsg] = useState('');
-  const [txtNameMsg, setTxtNameMsg] = useState('');
-  const [lastTxtNameMsg, setLastTxtNameMsg] = useState('');
-  const [nationalityMsg, setNationalityMsg] = useState('');
+  const [txtEmailMsg, setTxtEmailMsg] = useState();
+  const [txtNameMsg, setTxtNameMsg] = useState();
+  const [lastTxtNameMsg, setLastTxtNameMsg] = useState();
+  const [nationalityMsg, setNationalityMsg] = useState();
 
   const uid = user?._user?.uid;
   const galleryOptions = {
@@ -281,18 +281,20 @@ const AboutScreen = ({navigation, data}) => {
               setFirstName(text);
               setTxtNameMsg(
                 checkName(text)
-                  ? ''
+                  ? undefined
                   : 'Name is not valid!\n*Only albhabets are allowed!',
               );
               if (!text) {
-                setTxtNameMsg('');
+                setTxtNameMsg();
               }
             }}
             value={firstName}
           />
-          <View>
-            <Text style={styles.errorText}>{txtNameMsg}</Text>
-          </View>
+          {txtNameMsg && (
+            <View>
+              <Text style={styles.errorText}>{txtNameMsg}</Text>
+            </View>
+          )}
           <Text
             style={[
               styles.label,
@@ -312,18 +314,20 @@ const AboutScreen = ({navigation, data}) => {
               setLastName(text);
               setLastTxtNameMsg(
                 checkName(text)
-                  ? ''
+                  ? undefined
                   : 'Name is not valid!\n*Only albhabets are allowed!',
               );
               if (!text) {
-                setLastTxtNameMsg('');
+                setLastTxtNameMsg();
               }
             }}
             value={lastName}
           />
-          <View>
-            <Text style={styles.errorText}>{lastTxtNameMsg}</Text>
-          </View>
+          {lastTxtNameMsg && (
+            <View>
+              <Text style={styles.errorText}>{lastTxtNameMsg}</Text>
+            </View>
+          )}
           <View
             style={{
               display: 'flex',
@@ -353,16 +357,20 @@ const AboutScreen = ({navigation, data}) => {
             style={styles.input}
             onChangeText={text => {
               setEmail(text);
-              setTxtEmailMsg(checkEmail(text) ? '' : 'Email is not valid !');
+              setTxtEmailMsg(
+                checkEmail(text) ? undefined : 'Email is not valid !',
+              );
               if (!text) {
-                setTxtEmailMsg('');
+                setTxtEmailMsg();
               }
             }}
             value={email}
           />
-          <View>
-            <Text style={styles.errorText}>{txtEmailMsg}</Text>
-          </View>
+          {txtEmailMsg && (
+            <View>
+              <Text style={styles.errorText}>{txtEmailMsg}</Text>
+            </View>
+          )}
           <Text
             style={[
               styles.label,
@@ -401,17 +409,19 @@ const AboutScreen = ({navigation, data}) => {
             onChangeText={text => {
               setNationality(text);
               setNationalityMsg(
-                checkName(text) ? '' : 'Nationality is not valid !',
+                checkName(text) ? undefined : 'Nationality is not valid !',
               );
               if (!text) {
-                setNationalityMsg('');
+                setNationalityMsg();
               }
             }}
             value={nationality}
           />
-          <View>
-            <Text style={styles.errorText}>{nationalityMsg}</Text>
-          </View>
+          {nationalityMsg && (
+            <View>
+              <Text style={styles.errorText}>{nationalityMsg}</Text>
+            </View>
+          )}
         </View>
         <TouchableOpacity
           onPress={() => {

@@ -148,20 +148,19 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
           marginTop: 1.5 * statusBarHeight,
         }}>
         <TouchableOpacity
-          style={{position: 'absolute', left: 20}}
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Icon type="antdesign" name="left" size={20} color={Colors.white} />
+          style={{marginLeft: 15, paddingTop: 0, marginRight: 6}}
+          onPress={() => navigation.goBack()}>
+          <Icon type="Entypo" name="chevron-left" size={25} color={'#fff'} />
         </TouchableOpacity>
         <Text
           style={{
             color: Colors.white,
             fontFamily: 'Jost-SemiBold',
-            fontSize: 24,
-            fontWeight: '500',
-            marginLeft: 55,
-            lineHeight: 37,
+            fontSize: 22,
+            lineHeight: 26.4,
+            fontWeight: '700',
+            padding: 0,
+            textTransform: 'capitalize',
           }}>
           Add Booking
         </Text>
