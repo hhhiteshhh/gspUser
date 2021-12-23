@@ -156,7 +156,6 @@ const ExploreScreen = ({
             <View
               style={{
                 display: 'flex',
-                // justifyContent: 'space-between',
                 alignItems: 'flex-start',
                 flex: 1,
               }}>
@@ -189,24 +188,23 @@ const ExploreScreen = ({
                   flexWrap: 'wrap',
                   display: 'flex',
                   flexDirection: 'row',
-                  marginLeft: windowWidth < 390 ? 20 : 0,
-                  marginTop: 5 * statusBarHeight + 20,
+                  marginLeft: 20,
+                  marginTop:
+                    windowWidth < 390
+                      ? 5 * statusBarHeight + 25
+                      : 5 * statusBarHeight,
                 }}>
                 {results?.map((city, id) => (
                   <TouchableOpacity
                     key={id}
                     onPress={() => {
-                      // isGuestUser === 'true'
-                      //   ? navigation.navigate('LoginNotice')
-                      // :
                       setFocus(false);
                       setSearchQuery('');
                       navigation.navigate('Location', {
                         data: city,
                         countryId: city.country,
                       });
-                    }}
-                    style={{marginHorizontal: windowWidth < 390 ? 0 : 16}}>
+                    }}>
                     <Destination
                       title={city.cityName}
                       image={city.displayPhotoUrl}
@@ -265,9 +263,9 @@ const ExploreScreen = ({
               </View>
             </View>
             <Carousel
-              ref={c => {
-                this._carousel = c;
-              }}
+              // ref={c => {
+              //   this._carousel = c;
+              // }}
               data={popularDestinationData}
               renderItem={renderItem}
               sliderWidth={windowWidth}
@@ -392,6 +390,7 @@ const ExploreScreen = ({
                         lineHeight: 20,
                         marginBottom: 10,
                         color: '#000',
+                        textTransform: 'capitalize',
                       }}>
                       A perfect Destination for:
                     </Text>
@@ -420,6 +419,7 @@ const ExploreScreen = ({
                         marginBottom: 10,
                         marginTop: 20,
                         color: '#000',
+                        textTransform: 'capitalize',
                       }}>
                       Memories created here:
                     </Text>
@@ -465,6 +465,7 @@ const ExploreScreen = ({
                         fontFamily: 'Jost-Medium',
                         lineHeight: 20,
                         color: '#000',
+                        textTransform: 'capitalize',
                       }}>
                       Package starts from:
                     </Text>

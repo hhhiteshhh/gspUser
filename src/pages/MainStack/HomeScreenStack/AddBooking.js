@@ -21,6 +21,7 @@ import Modal from 'react-native-modal';
 import StatusBarComponent from '../../../components/StatusBarComponent';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
+import * as Animatable from 'react-native-animatable';
 
 const windowWidth = Dimensions.get('window').width;
 const statusBarHeight = StatusBar.currentHeight;
@@ -53,6 +54,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
   const [selectedPackageIndex, setSelectedPackageIndex] = useState();
   const [changesAlert, setChangesAlert] = useState(false);
   const [countryName, setCountryName] = useState();
+  const [showTimeSlots, setShowTimeSlots] = useState(false);
   // console.log({startDate});
   // console.log({endDate});
   // console.log(new Date());
@@ -113,7 +115,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
         destinationName: `${route.params.cityName}, ${countryName.countryName}`,
         destinationId: route.params.locationId,
         packageId: selectedPackage,
-        timeSlot: timeSlot,
+        timeSlot: showTimeSlots ? timeSlot : '',
         photographerName: '',
         photographerId: '',
         createdBy: uid,
@@ -130,6 +132,14 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
 
     navigation.navigate('RedirectingPage');
   };
+
+  useEffect(() => {
+    if (startDate === endDate && startDate && endDate) {
+      setShowTimeSlots(true);
+    } else {
+      setShowTimeSlots(false);
+    }
+  }, [startDate, endDate]);
   return (
     <ImageBackground source={addBookingBg} style={styles.image}>
       <StatusBarComponent />
@@ -165,7 +175,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
         <View
           style={{
             paddingHorizontal: 26,
-            paddingVertical: 10,
+            paddingVertical: 15,
             marginVertical: 30,
             backgroundColor: Colors.base,
             borderRadius: 20,
@@ -277,63 +287,67 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
             }}
           />
         </View>
-        <View
-          style={{
-            width: '100%',
-            backgroundColor: Colors.base,
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            borderRadius: 20,
-          }}>
-          <Text
-            style={{
-              color: Colors.blackLogoText,
-              fontFamily: 'Jost-Bold',
-              fontSize: 16,
-              fontWeight: '500',
-              padding: 5,
-            }}>
-            Select Time
-          </Text>
+        {showTimeSlots && (
           <View
             style={{
-              flexWrap: 'wrap',
-              flexDirection: 'row',
+              width: '100%',
+              backgroundColor: Colors.base,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              borderRadius: 20,
             }}>
-            {times.map((time, index) => (
-              <TouchableOpacity
-                style={{
-                  display: 'flex',
-                  marginHorizontal: 7,
-                  backgroundColor:
-                    timeIndex === index ? Colors.blue : Colors.white,
-                  borderRadius: 10,
-                  marginVertical: 5,
-                  elevation: 4,
-                }}
-                key={index}
-                onPress={() => {
-                  setTimeSlot(time), setTimeIndex(index);
-                }}>
-                <Text
+            <Text
+              style={{
+                color: Colors.blackLogoText,
+                fontFamily: 'Jost-Bold',
+                fontSize: 16,
+                fontWeight: '500',
+                padding: 5,
+              }}>
+              Select Time
+            </Text>
+            <View
+              style={{
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+              }}>
+              {times.map((time, index) => (
+                <TouchableOpacity
                   style={{
-                    paddingHorizontal: 30,
-                    paddingVertical: 15,
-                    textAlign: 'center',
-                    color: timeIndex == index ? Colors.white : 'black',
-                    fontSize: 12,
+                    display: 'flex',
+                    marginHorizontal: 7,
+                    backgroundColor:
+                      timeIndex === index ? Colors.blue : Colors.white,
+                    borderRadius: 10,
+                    marginVertical: 5,
+                    elevation: 4,
+                  }}
+                  key={index}
+                  onPress={() => {
+                    setTimeSlot(time), setTimeIndex(index);
                   }}>
-                  {time}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={{
+                      paddingHorizontal: 30,
+                      paddingVertical: 15,
+                      textAlign: 'center',
+                      color: timeIndex == index ? Colors.white : 'black',
+                      fontSize: 12,
+                    }}>
+                    {time}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
-        </View>
+        )}
+
         {!route.params.edit && (
           <View
             style={{
               width: '100%',
-              marginVertical: 30,
+              marginTop: showTimeSlots ? 30 : 0,
+              marginBottom: 30,
               backgroundColor: Colors.base,
               paddingVertical: 10,
               paddingHorizontal: 20,
@@ -429,14 +443,35 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
             if (route.params.edit) {
               editBooking();
             } else {
-              if (startDate && endDate && timeSlot && selectedPackage) {
-                // console.log('booking can be done');
+              if (
+                startDate &&
+                endDate &&
+                timeSlot &&
+                selectedPackage &&
+                showTimeSlots
+              ) {
                 addBooking();
+                console.log('adding Booking with timeslots');
               } else {
-                ToastAndroid.show(
-                  'All fields are mandatory',
-                  ToastAndroid.SHORT,
-                );
+                if (showTimeSlots) {
+                  if (!startDate || !endDate || !timeSlot || !selectedPackage) {
+                    ToastAndroid.show(
+                      'All fields are mandatory',
+                      ToastAndroid.SHORT,
+                    );
+                  }
+                } else {
+                  console.log('checking 3 fields');
+                  if (!startDate || !endDate || !selectedPackage) {
+                    ToastAndroid.show(
+                      'All fields are mandatory',
+                      ToastAndroid.SHORT,
+                    );
+                  } else {
+                    console.log('adding Booking without timeslots');
+                    addBooking();
+                  }
+                }
               }
             }
           }}>

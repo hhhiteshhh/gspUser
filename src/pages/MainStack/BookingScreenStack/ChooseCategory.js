@@ -63,6 +63,17 @@ const ChooseCategory = ({
             <TouchableOpacity
               onPress={() => {
                 explore && (setID(index), setSelected(true));
+                navigation.navigate('AddBooking', {
+                  locationId: {
+                    cityId: route.params.location?.city,
+                    countryId: route.params.location?.country,
+                    destinationId: route.params.locationId,
+                  },
+                  event: category.categoryName,
+                  eventId: category.uid,
+                  amount: route.params.amount,
+                  cityName: route.params?.location?.cityName,
+                });
               }}
               key={index}>
               <BrowseCategoryCard
@@ -90,102 +101,39 @@ const ChooseCategory = ({
           );
         })}
         {explore && (
-          <>
-            <TouchableOpacity
-              onPress={() => {
-                selected &&
-                  navigation.navigate('AddBooking', {
-                    locationId: {
-                      cityId: route.params.location?.city,
-                      countryId: route.params.location?.country,
-                      destinationId: route.params.locationId,
-                    },
-                    event: categories[id]?.categoryName,
-                    eventId: categories[id].uid,
-                    amount: route.params.amount,
-                    cityName: route.params?.location?.cityName,
-                  });
-              }}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 0.5, y: 0}}
-                colors={['#0ee2e2', '#10bef4']}
-                style={{
-                  borderRadius: 20,
-                  width: 141,
-                  height: 50,
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }}>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '97%',
-                    backgroundColor: selected ? 'transparent' : '#fff',
-                    margin: 2,
-                    borderRadius: 20,
-                    height: '93%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  }}>
-                  <Text
-                    style={{
-                      color: Colors.blackLogoText,
-                      fontSize: 14,
-                      fontFamily: 'Jost-SemiBold',
-                      padding: 8,
-                      textAlign: 'center',
-                      color: selected ? Colors.white : '#000',
-                    }}>
-                    Next
-                  </Text>
-                  <Icon
-                    type="antdesign"
-                    name="arrowright"
-                    size={25}
-                    color={selected ? Colors.white : '#000'}
-                  />
-                </View>
-              </LinearGradient>
-            </TouchableOpacity>
-
-            <TouchableOpacity
+          <TouchableOpacity
+            style={{
+              width: '90%',
+              marginRight: 'auto',
+              marginLeft: 'auto',
+              // marginVertical: 5,
+            }}
+            onPress={() => {
+              navigation.navigate('AddBooking', {
+                locationId: {
+                  cityId: route.params.location?.city,
+                  countryId: route.params.location?.country,
+                  destinationId: route.params.locationId,
+                },
+                event: '',
+                eventId: '',
+                amount: route.params.amount,
+                cityName: route.params?.location?.cityName,
+              });
+            }}>
+            <Text
               style={{
-                width: '90%',
-                marginRight: 'auto',
-                marginLeft: 'auto',
-                marginVertical: 10,
-              }}
-              onPress={() => {
-                navigation.navigate('AddBooking', {
-                  locationId: {
-                    cityId: route.params.location?.city,
-                    countryId: route.params.location?.country,
-                    destinationId: route.params.locationId,
-                  },
-                  event: '',
-                  eventId: '',
-                  amount: route.params.amount,
-                  cityName: route.params?.location?.cityName,
-                });
+                textAlign: 'center',
+                color: Colors.blue,
+                fontSize: 14,
+                fontWeight: '700',
+                fontFamily: 'Jost-Bold',
+                marginTop: 20,
+                lineHeight: 21,
               }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: Colors.blue,
-                  fontSize: 14,
-                  fontWeight: '700',
-                  fontFamily: 'Jost-Bold',
-                  marginTop: 20,
-                  lineHeight: 21,
-                }}>
-                Skip
-              </Text>
-            </TouchableOpacity>
-          </>
+              Skip
+            </Text>
+          </TouchableOpacity>
         )}
         <View style={{height: 50}} />
       </ScrollView>
@@ -201,3 +149,65 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
 });
+{
+  /* <TouchableOpacity
+onPress={() => {
+  selected &&
+    navigation.navigate('AddBooking', {
+      locationId: {
+        cityId: route.params.location?.city,
+        countryId: route.params.location?.country,
+        destinationId: route.params.locationId,
+      },
+      event: categories[id]?.categoryName,
+      eventId: categories[id].uid,
+      amount: route.params.amount,
+      cityName: route.params?.location?.cityName,
+    });
+}}>
+<LinearGradient
+  start={{x: 0, y: 0}}
+  end={{x: 0.5, y: 0}}
+  colors={['#0ee2e2', '#10bef4']}
+  style={{
+    borderRadius: 20,
+    width: 141,
+    height: 50,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  }}>
+  <View
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '97%',
+      backgroundColor: selected ? 'transparent' : '#fff',
+      margin: 2,
+      borderRadius: 20,
+      height: '93%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    }}>
+    <Text
+      style={{
+        color: Colors.blackLogoText,
+        fontSize: 14,
+        fontFamily: 'Jost-SemiBold',
+        padding: 8,
+        textAlign: 'center',
+        color: selected ? Colors.white : '#000',
+      }}>
+      Next
+    </Text>
+    <Icon
+      type="antdesign"
+      name="arrowright"
+      size={25}
+      color={selected ? Colors.white : '#000'}
+    />
+  </View>
+</LinearGradient>
+</TouchableOpacity> */
+}

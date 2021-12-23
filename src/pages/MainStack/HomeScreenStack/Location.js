@@ -103,7 +103,7 @@ function Location({navigation, route, isGuestUser}) {
       <Swiper
         paginationStyle={{
           right: 'auto',
-          left: 25,
+          left: 20,
           top: windowHeight * 0.65 - 40,
         }}
         style={styles.wrapper}

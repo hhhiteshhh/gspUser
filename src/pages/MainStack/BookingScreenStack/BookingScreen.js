@@ -124,6 +124,7 @@ export default function BookingScreen({
                     color: Colors.white,
                     textAlign: 'center',
                     lineHeight: 35,
+                    textTransform: 'capitalize',
                   }}>
                   Need to logout as Guest & login as User
                 </Text>
@@ -150,7 +151,7 @@ export default function BookingScreen({
                         marginRight: 'auto',
                         padding: 10,
                       }}>
-                      logout
+                      Log Out
                     </Text>
                   </LinearGradient>
                 </TouchableOpacity>

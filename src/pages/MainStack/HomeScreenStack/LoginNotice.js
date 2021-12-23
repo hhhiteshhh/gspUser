@@ -60,6 +60,7 @@ const LoginNotice = ({navigation}) => {
             color: Colors.white,
             textAlign: 'center',
             lineHeight: 35,
+            textTransform: 'capitalize',
           }}>
           Need to logout as Guest & login as User
         </Text>

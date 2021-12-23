@@ -33,6 +33,7 @@ const AboutScreen = ({navigation, data}) => {
   const [txtEmailMsg, setTxtEmailMsg] = useState('');
   const [txtNameMsg, setTxtNameMsg] = useState('');
   const [lastTxtNameMsg, setLastTxtNameMsg] = useState('');
+  const [nationalityMsg, setNationalityMsg] = useState('');
 
   const uid = user?._user?.uid;
   const galleryOptions = {
@@ -90,6 +91,14 @@ const AboutScreen = ({navigation, data}) => {
     }
   };
   const checkName = name => {
+    let result = REGEX.name.test(name);
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const checkNationality = name => {
     let result = REGEX.name.test(name);
     if (result) {
       return true;
@@ -341,7 +350,6 @@ const AboutScreen = ({navigation, data}) => {
               <Text style={styles.label2}>Verify Email</Text>
             </TouchableOpacity>
           </View>
-
           <TextInput
             style={styles.input}
             onChangeText={text => {
@@ -391,9 +399,20 @@ const AboutScreen = ({navigation, data}) => {
           </Text>
           <TextInput
             style={styles.input}
-            onChangeText={text => setNationality(text)}
+            onChangeText={text => {
+              setNationality(text);
+              setNationalityMsg(
+                checkName(text) ? '' : 'Nationality is not valid !',
+              );
+              if (!text) {
+                setNationalityMsg('');
+              }
+            }}
             value={nationality}
           />
+          <View>
+            <Text style={styles.errorText}>{nationalityMsg}</Text>
+          </View>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -403,7 +422,8 @@ const AboutScreen = ({navigation, data}) => {
             txtEmailMsg ||
             txtNameMsg ||
             lastTxtNameMsg ||
-            mobileNumber.length !== 10
+            mobileNumber.length !== 10 ||
+            nationalityMsg
           }>
           <LinearGradient
             start={{x: 0, y: 0}}
@@ -412,7 +432,8 @@ const AboutScreen = ({navigation, data}) => {
               txtEmailMsg ||
               txtNameMsg ||
               lastTxtNameMsg ||
-              mobileNumber.length !== 10
+              mobileNumber.length !== 10 ||
+              nationalityMsg
                 ? ['#d2ccc4', '#2f4353']
                 : ['#0ee2e2', '#10bef4']
             }
@@ -440,7 +461,7 @@ const AboutScreen = ({navigation, data}) => {
           </LinearGradient>
         </TouchableOpacity>
       </View>
-      <View style={{height: 100}} />
+      <View style={{height: 150}} />
     </ScrollView>
   );
 };
@@ -451,8 +472,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingLeft: 30,
-    // height: windowWidth < 390 ? windowHeight * 0.5 : windowHeight * 0.3,
-    // marginTop: windowWidth < 390 ? windowHeight * 0.15 + 20 : 0,
+    flex: 0.6,
+    marginTop: windowWidth < 390 ? windowHeight * 0.15 + 20 : 0,
   },
   label1: {
     color: Colors.blackLogoText,

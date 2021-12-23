@@ -329,7 +329,7 @@ export default function LoginScreen({
                               fontWeight: 'bold',
                               textTransform: 'capitalize',
                             }}>
-                            Terms & Conditions & Privacy Ploicy
+                            Terms & Conditions & Privacy Policy
                           </Text>
                         </Text>
                       </Text>
