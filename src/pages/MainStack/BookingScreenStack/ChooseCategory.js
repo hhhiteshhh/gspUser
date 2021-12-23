@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {Colors} from '../../../colors/index';
 import BrowseCategoryCard from '../../../components/BrowseCategoryCard';
-import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-easy-icon';
 const ChooseCategory = ({
   navigation,
@@ -149,65 +148,3 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
 });
-{
-  /* <TouchableOpacity
-onPress={() => {
-  selected &&
-    navigation.navigate('AddBooking', {
-      locationId: {
-        cityId: route.params.location?.city,
-        countryId: route.params.location?.country,
-        destinationId: route.params.locationId,
-      },
-      event: categories[id]?.categoryName,
-      eventId: categories[id].uid,
-      amount: route.params.amount,
-      cityName: route.params?.location?.cityName,
-    });
-}}>
-<LinearGradient
-  start={{x: 0, y: 0}}
-  end={{x: 0.5, y: 0}}
-  colors={['#0ee2e2', '#10bef4']}
-  style={{
-    borderRadius: 20,
-    width: 141,
-    height: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  }}>
-  <View
-    style={{
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '97%',
-      backgroundColor: selected ? 'transparent' : '#fff',
-      margin: 2,
-      borderRadius: 20,
-      height: '93%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    }}>
-    <Text
-      style={{
-        color: Colors.blackLogoText,
-        fontSize: 14,
-        fontFamily: 'Jost-SemiBold',
-        padding: 8,
-        textAlign: 'center',
-        color: selected ? Colors.white : '#000',
-      }}>
-      Next
-    </Text>
-    <Icon
-      type="antdesign"
-      name="arrowright"
-      size={25}
-      color={selected ? Colors.white : '#000'}
-    />
-  </View>
-</LinearGradient>
-</TouchableOpacity> */
-}

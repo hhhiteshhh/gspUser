@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {
   Dimensions,
   StyleSheet,

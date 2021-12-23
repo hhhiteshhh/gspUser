@@ -82,10 +82,6 @@ const ExploreScreen = ({
           style={styles.image}
           resizeMode="cover"
         />
-        {/* <Image
-          style={styles.image}
-          source={{uri: item.displayPhotoUrl}}>
-          </Image> */}
       </View>
     );
   };
@@ -556,7 +552,6 @@ const styles = StyleSheet.create({
   image: {
     width: windowWidth,
     height: windowHeight < 600 ? windowHeight * 0.8 : windowHeight * 0.6,
-    // position: 'relative',
     resizeMode: 'cover',
   },
   image1: {

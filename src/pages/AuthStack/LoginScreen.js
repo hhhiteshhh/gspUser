@@ -31,7 +31,6 @@ export default function LoginScreen({
   navigation,
   mobileNumber,
   handleMobileNumber,
-  ...props
 }) {
   const {updateUser} = useContext(InitialContext);
   const [isLoading, setLoading] = useState(false);

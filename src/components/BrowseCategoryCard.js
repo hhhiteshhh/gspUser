@@ -4,8 +4,6 @@ import {Colors} from '../colors';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
 import firestore from '@react-native-firebase/firestore';
-import * as Animatable from 'react-native-animatable';
-import ProgressiveImage from './ProgressiveImage';
 
 const BrowseCategoryCard = ({
   category,
@@ -26,7 +24,6 @@ const BrowseCategoryCard = ({
         setCategoryData(doc.data());
       });
   }, [category]);
-  const imageAnimated = new Animated.Value(0);
   const handleImageLoad = async () => {
     setShowData(true);
   };
@@ -45,14 +42,6 @@ const BrowseCategoryCard = ({
         borderColor: explore && id === index ? Colors.blue : 'transparent',
         height: 150,
       }}>
-      <ProgressiveImage
-        thumbnailSource={{
-          uri: category?.displayImages[0],
-        }}
-        style={styles.image}
-        source={{uri: category?.displayImages[0]}}
-        resizeMode="cover"
-      />
       <FastImage
         source={{uri: category?.displayImages[0]}}
         style={styles.image}

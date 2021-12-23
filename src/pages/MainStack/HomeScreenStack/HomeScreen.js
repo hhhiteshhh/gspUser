@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   StatusBar,
-  Dimensions,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
@@ -22,17 +21,13 @@ import ProgressiveImage from '../../../components/ProgressiveImage';
 import InstaStory from 'react-native-insta-story';
 
 const statusBarHeight = StatusBar.currentHeight;
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 export default function HomeScreen({
   navigation,
   data,
   isGuestUser,
   categories,
   exploreScreenData,
-  // AllStories,
   AllStories,
-  // chatsId,
   uid,
 }) {
   const [chatsId, setChatsId] = useState([]);
@@ -42,7 +37,6 @@ export default function HomeScreen({
   const [photographersMessagesId, setPhotographerMessagesId] = useState([]);
   const [messagesLength, setMessagesLength] = useState();
   const [storiesData, setStoriesData] = useState([]);
-  // const [AllStories, setAllStories] = useState([]);
   const [storyDataWithSeenBy, setstoryDataWithSeenBy] = useState();
   const [storyData, setStoryData] = useState([]);
 
@@ -97,18 +91,7 @@ export default function HomeScreen({
         });
     }
   }, [exploreScreenData]);
-  // useEffect(
-  //   () =>
-  //     firestore()
-  //       .collection('stories')
-  //       .orderBy('timestamp', 'desc')
-  //       .onSnapshot(snapshot =>
-  //         setAllStories(
-  //           snapshot?.docs?.map(doc => ({id: doc.id, ...doc.data()})),
-  //         ),
-  //       ),
-  //   [],
-  // );
+  
   useEffect(() => {
     let seenByUser = [];
     let notSeenByUser = [];

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {Colors} from '../../../colors';
 import {InitialContext} from '../../../context/index';
 import firestore from '@react-native-firebase/firestore';

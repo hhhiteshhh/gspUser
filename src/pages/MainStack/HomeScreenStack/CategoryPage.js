@@ -7,7 +7,6 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import {Colors} from '../../../colors/index';

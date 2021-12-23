@@ -21,13 +21,11 @@ import Modal from 'react-native-modal';
 import StatusBarComponent from '../../../components/StatusBarComponent';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
-import * as Animatable from 'react-native-animatable';
 
 const windowWidth = Dimensions.get('window').width;
 const statusBarHeight = StatusBar.currentHeight;
 
 const AddBooking = ({navigation, route, uid, packageData}) => {
-  // console.log(packageData);
   const times = [
     '07AM-10AM',
     '10AM-01PM',

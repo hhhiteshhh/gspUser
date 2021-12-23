@@ -258,7 +258,6 @@ function MyTabBar({navigation, bookingNotifications, ...props}) {
             height: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            // backgroundColor: '#fff',
           }}>
           <Icon
             type={data.type}

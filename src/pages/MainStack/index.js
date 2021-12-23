@@ -195,7 +195,6 @@ function MainStack({props}) {
       </Stack.Screen>
       <Stack.Screen
         name="ChatRoom"
-        // component={ChatRoom}
         options={{headerShown: true}}>
         {props => <ChatRoom {...props} data={data} uid={uid} />}
       </Stack.Screen>

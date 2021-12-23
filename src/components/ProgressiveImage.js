@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Animated} from 'react-native';
+import {StyleSheet, View, Animated} from 'react-native';
 
 const ProgressiveImage = props => {
   const {thumbnailSource, source, style} = props;
