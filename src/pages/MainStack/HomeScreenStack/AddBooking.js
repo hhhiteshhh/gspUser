@@ -53,6 +53,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
   const [changesAlert, setChangesAlert] = useState(false);
   const [countryName, setCountryName] = useState();
   const [showTimeSlots, setShowTimeSlots] = useState(false);
+  const [minDate, setMindate] = useState(new Date());
   // console.log({startDate});
   // console.log({endDate});
   // console.log(new Date());
@@ -206,7 +207,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
             placeholder="DD/MM/YYYY"
             format="DD/MM/YYYY"
             iconSource=""
-            minDate={new Date()}
+            minDate={minDate.getDate() + 1}
             customStyles={{
               dateInput: {
                 marginLeft: 0,
