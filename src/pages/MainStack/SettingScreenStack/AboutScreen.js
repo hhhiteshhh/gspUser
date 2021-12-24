@@ -199,7 +199,7 @@ const AboutScreen = ({navigation, data}) => {
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => !isUploading && openGallery()}
-          style={{flex: 0.4, display: 'flex', height: windowHeight * 0.5}}>
+          >
           {isUploading ? (
             <View
               style={{
@@ -232,30 +232,10 @@ const AboutScreen = ({navigation, data}) => {
                 width: '100%',
                 paddingTop: 400,
                 overflow: 'hidden',
-                height: windowHeight * 0.5,
+                // height: windowHeight * 0.5,
               }}
               resizeMode="cover"
-              // borderRadius={200}
-              // elevation={4}
             />
-            // <FastImage
-            //   source={{
-            //     uri: response?.didCancel
-            //       ? data?.displayPictureUrl ||
-            //         'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad'
-            //       : response?.assets[0]
-            //       ? response?.assets[0]?.uri
-            //       : data?.displayPictureUrl ||
-            //         'https://firebasestorage.googleapis.com/v0/b/getsnappers-b188f.appspot.com/o/avatar.jpg?alt=media&token=2271a542-fe3b-4ef8-b970-294dd29198ad',
-            //   }}
-            //   resizeMode="cover"
-            //   style={{
-            //     width: '100%',
-            //     paddingTop: 400,
-            //     overflow: 'hidden',
-            //     height: windowHeight * 0.5,
-            //   }}
-            // />
           )}
         </TouchableOpacity>
 
@@ -481,8 +461,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingLeft: 30,
-    flex: 0.6,
-    marginTop: windowWidth < 390 ? windowHeight * 0.15 + 20 : 0,
+    // flex: 0.6,
+    // marginTop: windowWidth < 390 ? windowHeight * 0.15 + 20 : 20,
   },
   label1: {
     color: Colors.blackLogoText,
