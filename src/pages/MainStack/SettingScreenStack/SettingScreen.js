@@ -11,6 +11,7 @@ import {Colors} from '../../../colors';
 import settingScreenBg from '../../../../assets/images/settingScreenImages/settingFinal.png';
 import SettingsOptions from '../../../components/SettingsOptions';
 import StatusBarComponent from '../../../components/StatusBarComponent';
+import AppbarHeader from '../../../components/AppbarHeader';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const statusBarHeight = StatusBar.currentHeight;
@@ -22,16 +23,7 @@ export default function SettingScreen({navigation, isGuestUser}) {
         backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
-      <Text
-        style={{
-          color: Colors.white,
-          fontFamily: 'Jost-SemiBold',
-          fontSize: 22,
-          marginTop: 1.5 * statusBarHeight,
-          paddingLeft: 18,
-        }}>
-        Settings
-      </Text>
+      <AppbarHeader title={'Settings'} />
       <View
         style={{
           display: 'flex',

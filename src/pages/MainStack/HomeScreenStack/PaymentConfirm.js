@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,65 +19,77 @@ import StatusBarComponent from '../../../components/StatusBarComponent';
 const windowWidth = Dimensions.get('window').width;
 
 const PaymentConfirm = ({navigation}) => {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setTimeout(function () {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'HomePage',
-              params: {
-                bookingScreen: true,
+    if (!loading) {
+      setTimeout(function () {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'HomePage',
+                params: {
+                  bookingScreen: true,
+                },
               },
-            },
-          ],
-        }),
-      );
-    }, 3500);
-  }, [navigation]);
+            ],
+          }),
+        );
+      }, 3500);
+    }
+  }, [loading]);
   return (
-    <ImageBackground source={paymentScreenBg} style={styles.image}>
+    <ImageBackground
+      source={paymentScreenBg}
+      style={styles.image}
+      onLoad={() => {
+        setLoading(false);
+      }}>
       <StatusBarComponent />
-      <View
-        style={{
-          height: 277,
-          marginLeft: 20,
-          marginRight: 20,
-          borderRadius: 20,
-          backgroundColor: Colors.white,
-          paddingTop: 44,
-        }}>
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: windowWidth < 390 ? 20 : 26,
-            color: Colors.blackLogoText,
-            textAlign: 'center',
-            marginLeft: 34,
-            marginRight: 34,
-            lineHeight: 37,
-          }}>
-          Congratulations!!!{'\n'} Your Booking is {'\n'} confirmed
-        </Text>
+      {!loading && (
         <Animatable.View
-          animation="zoomIn"
-          delay={1500}
-          style={{width: '100%'}}>
-          <FastImage
-            source={tickMark}
-            resizeMode="contain"
+          animation="fadeIn"
+          duration={500}
+          style={{
+            height: 277,
+            marginLeft: 20,
+            marginRight: 20,
+            borderRadius: 20,
+            backgroundColor: Colors.white,
+            paddingTop: 44,
+          }}>
+          <Text
             style={{
-              width: 86,
-              height: 86,
-              resizeMode: 'contain',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: 24,
-            }}
-          />
+              fontWeight: 'bold',
+              fontSize: windowWidth < 390 ? 20 : 26,
+              color: Colors.blackLogoText,
+              textAlign: 'center',
+              marginLeft: 34,
+              marginRight: 34,
+              lineHeight: 37,
+            }}>
+            Congratulations!!!{'\n'} Your Booking is {'\n'} confirmed
+          </Text>
+          <Animatable.View
+            animation="zoomIn"
+            delay={2000}
+            style={{width: '100%'}}>
+            <FastImage
+              source={tickMark}
+              resizeMode="contain"
+              style={{
+                width: 86,
+                height: 86,
+                resizeMode: 'contain',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: 24,
+              }}
+            />
+          </Animatable.View>
         </Animatable.View>
-      </View>
+      )}
     </ImageBackground>
   );
 };

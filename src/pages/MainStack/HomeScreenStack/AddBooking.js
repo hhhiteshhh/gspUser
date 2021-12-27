@@ -162,6 +162,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
             fontWeight: '700',
             padding: 0,
             textTransform: 'capitalize',
+            marginLeft: -4,
           }}>
           Add Booking
         </Text>
@@ -449,7 +450,6 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
                 showTimeSlots
               ) {
                 addBooking();
-                console.log('adding Booking with timeslots');
               } else {
                 if (showTimeSlots) {
                   if (!startDate || !endDate || !timeSlot || !selectedPackage) {
@@ -459,14 +459,12 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
                     );
                   }
                 } else {
-                  console.log('checking 3 fields');
                   if (!startDate || !endDate || !selectedPackage) {
                     ToastAndroid.show(
                       'All fields are mandatory',
                       ToastAndroid.SHORT,
                     );
                   } else {
-                    console.log('adding Booking without timeslots');
                     addBooking();
                   }
                 }

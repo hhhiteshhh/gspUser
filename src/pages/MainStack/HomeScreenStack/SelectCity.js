@@ -65,7 +65,6 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
   }, [navigation]);
 
   const onChangeSearch = q => {
-    setFocus(false);
     setSearchQuery(q);
     showResult(q);
   };
@@ -109,6 +108,23 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
             setResults('');
           }}
         />
+        {focus && (
+          <TouchableOpacity
+            style={{position: 'absolute', right: 10}}
+            onPress={() => {
+              Keyboard.dismiss();
+              setFocus(false);
+              setResults(exploreScreenData);
+              setSearchQuery('');
+            }}>
+            <Icon
+              name={'cross'}
+              type={'entypo'}
+              color={'rgba(0,0,0,0.3)'}
+              size={20}
+            />
+          </TouchableOpacity>
+        )}
       </View>
       <TouchableWithoutFeedback
         onPress={() => {
@@ -221,16 +237,20 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
             <View style={{height: 100}} />
           </ScrollView>
         ) : (
-          <View>
-            <Text
-              style={{
-                color: '#000',
-                textAlign: 'center',
-                marginTop: windowHeight * 0.4,
-              }}>
-              {!focus && 'No Such Destination Available'}
-            </Text>
-          </View>
+          <>
+            {searchQuery?.length > 0 && results?.length === 0 && (
+              <View>
+                <Text
+                  style={{
+                    color: '#000',
+                    textAlign: 'center',
+                    marginTop: windowHeight * 0.4,
+                  }}>
+                  No Such Destination Available
+                </Text>
+              </View>
+            )}
+          </>
         )}
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

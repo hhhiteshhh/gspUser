@@ -20,6 +20,7 @@ import BookingCard from '../../../components/BookingCard';
 import {InitialContext} from '../../../context';
 import firestore from '@react-native-firebase/firestore';
 import Modal from 'react-native-modal';
+import AppbarHeader from '../../../components/AppbarHeader';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -42,22 +43,24 @@ export default function BookingScreen({
   const handleSignOut = () => {
     signOut();
   };
-
-  useEffect(() => {
-    const dummyArray = [];
-    bookingData.forEach(booking => {
-      dummyArray.push(booking.bookingStatus);
-      setCancelBookingsStatus(dummyArray);
-    });
-  }, [bookingData]);
-  useEffect(() => {
-    setCancelImage(allEqual(cancelBookingsStatus));
-    setCompleteImage(someComplete(cancelBookingsStatus));
-  }, [cancelBookingsStatus, bookingData]);
-  const allEqual = cancelBookingsStatus =>
-    cancelBookingsStatus?.some(v => v === 'onGoing');
-  const someComplete = cancelBookingsStatus =>
-    cancelBookingsStatus?.some(v => v === 'completed');
+  const [cancelledBookings, setCancelBookings] = useState([]);
+  const [onGoingBookings, setOnGoingBookings] = useState([]);
+  const [completedBookings, setCompletedBookings] = useState([]);
+  // useEffect(() => {
+  //   const dummyArray = [];
+  //   bookingData.forEach(booking => {
+  //     dummyArray.push(booking.bookingStatus);
+  //     setCancelBookingsStatus(dummyArray);
+  //   });
+  // }, [bookingData]);
+  // useEffect(() => {
+  //   setCancelImage(allEqual(cancelBookingsStatus));
+  //   setCompleteImage(someComplete(cancelBookingsStatus));
+  // }, [cancelBookingsStatus, bookingData]);
+  // const allEqual = cancelBookingsStatus =>
+  //   cancelBookingsStatus?.some(v => v === 'onGoing');
+  // const someComplete = cancelBookingsStatus =>
+  //   cancelBookingsStatus?.some(v => v === 'completed');
 
   useEffect(() => {
     bookingNotifications?.map(item => {
@@ -68,28 +71,36 @@ export default function BookingScreen({
   }, []);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
+  }, [navigation]);
+
+  useEffect(() => {
+    let newArray = bookingData?.filter(function (el) {
+      return el.bookingStatus === 'cancelled';
+    });
+    setCancelBookings(newArray);
+  }, [bookingData]);
+  useEffect(() => {
+    let newArray = bookingData?.filter(function (el) {
+      return el.bookingStatus === 'onGoing';
+    });
+    setOnGoingBookings(newArray);
+  }, [bookingData]);
+  useEffect(() => {
+    let newArray = bookingData?.filter(function (el) {
+      return el.bookingStatus === 'completed';
+    });
+    setCompletedBookings(newArray);
+  }, [bookingData]);
 
   return (
     <View style={styles.root}>
       <ImageBackground
         source={bookingScreenBg}
         style={styles.image}
-        blurRadius={15}>
+        blurRadius={15}
+        onLoad={() => setLoading(false)}>
         <StatusBar translucent backgroundColor="transparent" />
-        <Text
-          style={{
-            color: Colors.white,
-            fontFamily: 'Jost-SemiBold',
-            fontSize: 22,
-            marginTop: 1.5 * statusBarHeight,
-            paddingLeft: 18,
-          }}>
-          Bookings
-        </Text>
+        <AppbarHeader title={'Bookings'} />
         {isGuestUser === 'true' ? (
           <View
             style={{
@@ -166,6 +177,7 @@ export default function BookingScreen({
                 flexDirection: 'row',
                 alignItems: 'center',
                 padding: 18,
+                justifyContent: 'space-between',
               }}>
               <TouchableOpacity
                 onPress={() => setIndex(1)}
@@ -189,7 +201,6 @@ export default function BookingScreen({
                 style={{
                   borderBottomWidth: 1,
                   borderBottomColor: index === 2 ? Colors.blue : 'transparent',
-                  marginHorizontal: 54,
                   borderRadius: 0.5,
                 }}>
                 <Text
@@ -200,6 +211,23 @@ export default function BookingScreen({
                     paddingBottom: 5,
                   }}>
                   Completed
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setIndex(3)}
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: index === 3 ? Colors.blue : 'transparent',
+                  borderRadius: 0.5,
+                }}>
+                <Text
+                  style={{
+                    color: Colors.white,
+                    fontFamily: 'Jost-SemiBold',
+                    fontSize: 20,
+                    paddingBottom: 5,
+                  }}>
+                  Cancelled
                 </Text>
               </TouchableOpacity>
             </View>
@@ -239,7 +267,7 @@ export default function BookingScreen({
             )}
             {!loading && index === 1 && (
               <>
-                {bookingData.length === 0 || !cancelImage ? (
+                {onGoingBookings?.length === 0 ? (
                   <View
                     style={{
                       marginTop: 'auto',
@@ -311,33 +339,30 @@ export default function BookingScreen({
                   </View>
                 ) : (
                   <ScrollView>
-                    {bookingData?.map(
-                      (booking, index) =>
-                        booking.bookingStatus == 'onGoing' && (
-                          <TouchableOpacity
-                            key={index}
-                            onPress={() => {
-                              setId(index);
-                            }}>
-                            <BookingCard
-                              key={index}
-                              navigation={navigation}
-                              index={index}
-                              id={id}
-                              data={booking}
-                              status={booking.bookingStatus}
-                            />
-                          </TouchableOpacity>
-                        ),
-                    )}
-                    <View style={{height: 150}} />
+                    {onGoingBookings?.map((booking, index) => (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => {
+                          setId(index);
+                        }}>
+                        <BookingCard
+                          key={index}
+                          navigation={navigation}
+                          index={index}
+                          id={id}
+                          data={booking}
+                          status={booking.bookingStatus}
+                        />
+                      </TouchableOpacity>
+                    ))}
+                    <View style={{height: 50}} />
                   </ScrollView>
                 )}
               </>
             )}
             {!loading && index === 2 && (
               <>
-                {bookingData.length == 0 || !completeImage ? (
+                {completedBookings.length == 0 ? (
                   <View
                     style={{
                       marginTop: 'auto',
@@ -409,18 +434,104 @@ export default function BookingScreen({
                   </View>
                 ) : (
                   <ScrollView>
-                    {bookingData.map(
-                      (booking, index) =>
-                        booking.bookingStatus === 'completed' && (
-                          <BookingCard
-                            key={index}
-                            navigation={navigation}
-                            index={index}
-                            data={booking}
-                            status={booking.bookingStatus}
-                          />
-                        ),
-                    )}
+                    {completedBookings?.map((booking, index) => (
+                      <BookingCard
+                        key={index}
+                        navigation={navigation}
+                        index={index}
+                        data={booking}
+                        status={booking.bookingStatus}
+                      />
+                    ))}
+                    <View style={{height: 50}} />
+                  </ScrollView>
+                )}
+              </>
+            )}
+            {!loading && index === 3 && (
+              <>
+                {cancelledBookings?.length === 0 ? (
+                  <View
+                    style={{
+                      marginTop: 'auto',
+                      marginBottom:
+                        windowHeight > 600
+                          ? windowWidth * 0.7
+                          : windowWidth * 0.45,
+                    }}>
+                    <View
+                      style={{
+                        width: windowWidth * 0.5,
+                        height: windowWidth * 0.5,
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                      }}>
+                      <FastImage
+                        source={noBookingsYet}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                        }}
+                      />
+                      <Text
+                        style={{
+                          textAlign: 'center',
+                          color: Colors.white,
+                          fontFamily: 'Jost-SemiBold',
+                          fontSize: 15,
+                          marginTop: -windowWidth * 0.1,
+                        }}>
+                        You have no Cancelled booking
+                      </Text>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('BrowseCategories', {
+                          name: 'Add a Booking',
+                        })
+                      }
+                      style={{
+                        width: '70%',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        marginTop: 55,
+                      }}>
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#0ee2e2', '#10bef4']}
+                        style={{
+                          borderRadius: 12,
+                        }}>
+                        <Text
+                          style={{
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Jost-SemiBold',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            padding: 13,
+                          }}>
+                          <Icon type="antdesign" name="pluscircleo" size={15} />
+                          {'  '} Add Booking
+                        </Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <ScrollView>
+                    {cancelledBookings?.map((booking, index) => (
+                      <BookingCard
+                        key={index}
+                        navigation={navigation}
+                        index={index}
+                        data={booking}
+                        status={booking.bookingStatus}
+                      />
+                    ))}
+                    <View style={{height: 50}} />
                   </ScrollView>
                 )}
               </>

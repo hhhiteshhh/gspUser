@@ -101,31 +101,48 @@ const BookingCard = ({navigation, data, status}) => {
                 borderRadius={11}
                 elevation={10}
               />
+              <View style={{position: 'absolute', right: 11, top: 20}}>
+                <Icon
+                  type="AntDesign"
+                  name="arrow-upward"
+                  size={20}
+                  color={Colors.blue}
+                />
+              </View>
               <View
                 style={{
                   paddingLeft: 20,
                   display: 'flex',
                   justifyContent: 'space-between',
-                  flex: 0.6,
+                  flex: 1,
+                  paddingRight: 11,
                 }}>
-                <Text
+                <View
                   style={{
-                    fontSize: 17,
-                    fontWeight: 'bold',
-                    lineHeight: 22,
-                    textTransform: 'capitalize',
-                    color: '#000',
-                    textTransform: 'capitalize',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: '100%',
                   }}>
-                  {data?.destinationName.split(',')[0]},
                   <Text
                     style={{
-                      fontSize: 15,
-                      textTransform: 'uppercase',
+                      fontSize: 17,
+                      fontWeight: 'bold',
+                      lineHeight: 22,
+                      textTransform: 'capitalize',
+                      color: '#000',
+                      textTransform: 'capitalize',
                     }}>
-                    {data?.destinationName.split(',')[1]}
+                    {data?.destinationName.split(',')[0]},
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        textTransform: 'uppercase',
+                      }}>
+                      {data?.destinationName.split(',')[1]}
+                    </Text>
                   </Text>
-                </Text>
+                </View>
                 <View
                   style={{
                     display: 'flex',
@@ -394,22 +411,40 @@ const BookingCard = ({navigation, data, status}) => {
                 justifyContent: 'space-between',
                 flex: 1,
               }}>
-              <Text
+              <View
                 style={{
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  lineHeight: 22,
-                  textTransform: 'capitalize',
-                  color: '#000',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
                 }}>
-                {data?.destinationName.split(',')[0]},
                 <Text
                   style={{
-                    textTransform: 'uppercase',
+                    fontSize: 17,
+                    fontWeight: 'bold',
+                    lineHeight: 22,
+                    textTransform: 'capitalize',
+                    color: '#000',
+                    textTransform: 'capitalize',
                   }}>
-                  {data?.destinationName.split(',')[1]}
+                  {data?.destinationName.split(',')[0]},
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      textTransform: 'uppercase',
+                    }}>
+                    {data?.destinationName.split(',')[1]}
+                  </Text>
                 </Text>
-              </Text>
+                <View style={{marginRight: 10}}>
+                  <Icon
+                    type="AntDesign"
+                    name="arrow-downward"
+                    size={20}
+                    color={Colors.blue}
+                  />
+                </View>
+              </View>
               <Text
                 style={{
                   fontSize: 10,
@@ -614,6 +649,130 @@ const BookingCard = ({navigation, data, status}) => {
                     : 'Yet to upload photos'}
                 </Text>
               </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
+      {status === 'cancelled' && (
+        <View
+          style={{
+            marginLeft: 20,
+            marginRight: 27,
+            backgroundColor: Colors.white,
+            paddingVertical: 18,
+            paddingLeft: 14,
+            borderRadius: 20,
+            elevation: 4,
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'row',
+            marginVertical: 20,
+          }}>
+          <ProgressiveImage
+            thumbnailSource={{
+              uri: `${locationData?.displayPhotoUrl}`,
+            }}
+            source={{uri: locationData?.displayPhotoUrl}}
+            style={{width: 75, height: 84, borderRadius: 10, flex: 0.4}}
+            resizeMode="cover"
+            borderRadius={10}
+          />
+          <View
+            style={{
+              paddingLeft: 10,
+              display: 'flex',
+              justifyContent: 'space-between',
+              flex: 1,
+            }}>
+            <Text
+              style={{
+                fontSize: windowWidth < 390 ? 13 : 16,
+                fontWeight: 'bold',
+                lineHeight: 22,
+                textTransform: 'capitalize',
+                color: '#000',
+              }}>
+              {data?.destinationName.split(',')[0]},
+              <Text
+                style={{
+                  textTransform: 'uppercase',
+                }}>
+                {data?.destinationName.split(',')[1]}
+              </Text>
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: Colors.blue,
+                fontWeight: 'bold',
+                lineHeight: 22,
+              }}>
+              {data?.startDate}
+            </Text>
+            {/* <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 10, lineHeight: 22, color: '#000'}}>
+                Photographer:{' '}
+              </Text>
+              <TouchableOpacity onPress={() => {}}>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: data?.photographerAllocated ? Colors.blue : 'red',
+                    fontWeight: 'bold',
+                  }}>
+                  {data?.photographerAllocated
+                    ? photographerData?.firstName
+                      ? photographerData?.firstName +
+                        ' ' +
+                        photographerData?.lastName
+                      : photographerData?.uid?.slice(2)
+                    : 'To Be Assigned'}
+                </Text>
+              </TouchableOpacity>
+            </View> */}
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+              }}>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    lineHeight: 22,
+                    color: '#000',
+                  }}>
+                  Status:
+                  <Text style={{color: 'red'}}> Cancelled</Text>
+                </Text>
+              </View>
+              {/* <TouchableOpacity
+                style={{position: 'absolute', right: 10, bottom: -2}}
+                disabled={!data?.photosUploaded}
+                onPress={() => {
+                  navigation.navigate('Photos', {
+                    name: data?.destinationName,
+                  });
+                }}>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 'bold',
+                    color: 'red',
+                    lineHeight: 22,
+                    textTransform: 'capitalize',
+                  }}>
+                 cancelled
+                </Text>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>

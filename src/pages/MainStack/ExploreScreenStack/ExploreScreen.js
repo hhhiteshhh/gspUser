@@ -27,6 +27,7 @@ import Destination from '../../../components/Destination';
 import ProgressiveImage from '../../../components/ProgressiveImage';
 import AndroidKeyboardAdjust from 'react-native-android-keyboard-adjust';
 import LoadingPlaceholderForExploreScreen from '../../../components/LoadingPlaceholderForExploreScreen';
+import AppbarHeader from '../../../components/AppbarHeader';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -137,25 +138,14 @@ const ExploreScreen = ({
             style={styles.imageBg}
             blurRadius={10}>
             <StatusBarComponent />
-            <Text
-              style={{
-                fontSize: 22,
-                top: 1.5 * statusBarHeight,
-                paddingLeft: 18,
-                color: Colors.white,
-                position: 'absolute',
-                zIndex: 999,
-                fontFamily: 'Jost-SemiBold',
-              }}>
-              Explore
-            </Text>
+            <AppbarHeader title={'Explore'} />
             <View
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
                 flex: 1,
               }}>
-              <View style={styles.input}>
+              <View style={styles.input1}>
                 <Icon
                   name={'search'}
                   type={'ionicon'}
@@ -178,6 +168,23 @@ const ExploreScreen = ({
                     setResults([]);
                   }}
                 />
+                {focus && (
+                  <TouchableOpacity
+                    style={{position: 'absolute', right: 10}}
+                    onPress={() => {
+                      Keyboard.dismiss();
+                      setFocus(false);
+                      setActiveIndex(0);
+                      setSearchQuery('');
+                    }}>
+                    <Icon
+                      name={'cross'}
+                      type={'entypo'}
+                      color={'rgba(0,0,0,0.3)'}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
               <View
                 style={{
@@ -185,11 +192,16 @@ const ExploreScreen = ({
                   display: 'flex',
                   flexDirection: 'row',
                   marginLeft: 20,
-                  marginTop:
-                    windowWidth < 390
-                      ? 5 * statusBarHeight + 25
-                      : 5 * statusBarHeight,
+                  marginTop: statusBarHeight * 0.5
                 }}>
+                {searchQuery?.length > 0 && results?.length === 0 && (
+                  <Text
+                    style={{
+                      textTransform: 'capitalize',
+                    }}>
+                    No such destination
+                  </Text>
+                )}
                 {results?.map((city, id) => (
                   <TouchableOpacity
                     key={id}
@@ -220,7 +232,7 @@ const ExploreScreen = ({
               style={{
                 fontSize: 22,
                 top: 1.5 * statusBarHeight,
-                marginLeft: 24,
+                marginLeft: 18,
                 color: Colors.white,
                 position: 'absolute',
                 zIndex: 999,
@@ -256,6 +268,16 @@ const ExploreScreen = ({
                     setResults([]);
                   }}
                 />
+                {focus && (
+                  <TouchableOpacity style={{position: 'absolute', right: 5}}>
+                    <Icon
+                      name={'cross'}
+                      type={'entypo'}
+                      color={'rgba(0,0,0,0.3)'}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
             <Carousel
@@ -574,6 +596,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     position: 'absolute',
     top: 1.7 * statusBarHeight + 20,
+    zIndex: 999,
+  },
+  input1: {
+    display: 'flex',
+    width: '88%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,1)',
+    marginLeft: 22,
+    marginRight: 22,
+    padding: 5,
+    borderRadius: 15,
+    overflow: 'hidden',
+    marginTop: 20,
     zIndex: 999,
   },
   description: {
