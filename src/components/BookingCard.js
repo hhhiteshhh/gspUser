@@ -21,16 +21,16 @@ const windowWidth = Dimensions.get('window').width;
 const BookingCard = ({navigation, data, status}) => {
   const [locationData, setLocationData] = useState([]);
   const [packageData, setPackageData] = useState([]);
-  const [viewDestinationData, setViewDestinationData] = useState([]);
+  const [viewDestinationData, setViewDestinationData] = useState();
   const [photographerData, setPhotographerData] = useState([]);
 
   useEffect(() => {
-    firestore()
-      .collection('cities')
-      .doc(data?.destinationId?.cityId)
-      .onSnapshot(snapshot => {
-        setLocationData({...snapshot.data()});
-      });
+    // firestore()
+    //   .collection('cities')
+    //   .doc(data?.destinationId?.cityId)
+    //   .onSnapshot(snapshot => {
+    //     setLocationData({...snapshot.data()});
+    //   });
     firestore()
       .collection('packages')
       .doc(data?.packageId)
@@ -50,6 +50,7 @@ const BookingCard = ({navigation, data, status}) => {
         setPhotographerData({...snapshot.data()});
       });
   }, [data]);
+  // console.log(data.destinationId);
   const [cancelAlert, setCancelAlert] = useState(false);
   const [show, setShow] = useState(false);
   const bookingdate = data?.createdAt?.toDate().toLocaleDateString().split('/');
@@ -60,8 +61,8 @@ const BookingCard = ({navigation, data, status}) => {
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
   };
-  // console.log(viewDestinationData);
-  console.log(locationData);
+  console.log(viewDestinationData);
+  // console.log(locationData);
   return (
     <View>
       {status === 'onGoing' &&
@@ -89,9 +90,9 @@ const BookingCard = ({navigation, data, status}) => {
               }}>
               <ProgressiveImage
                 thumbnailSource={{
-                  uri: `${locationData?.displayPhotoUrl}`,
+                  uri: viewDestinationData?.displayImages[0],
                 }}
-                source={{uri: locationData?.displayPhotoUrl}}
+                source={{uri: viewDestinationData?.displayImages[0]}}
                 style={{
                   width: 126,
                   height: 102,
@@ -391,9 +392,9 @@ const BookingCard = ({navigation, data, status}) => {
             }}>
             <ProgressiveImage
               thumbnailSource={{
-                uri: `${locationData?.displayPhotoUrl}`,
+                uri: viewDestinationData?.displayImages[0],
               }}
-              source={{uri: locationData?.displayPhotoUrl}}
+              source={{uri: viewDestinationData?.displayImages[0]}}
               style={{
                 width: 75,
                 height: 84,
@@ -543,9 +544,9 @@ const BookingCard = ({navigation, data, status}) => {
           }}>
           <ProgressiveImage
             thumbnailSource={{
-              uri: `${locationData?.displayPhotoUrl}`,
+              uri: viewDestinationData?.displayImages[0],
             }}
-            source={{uri: locationData?.displayPhotoUrl}}
+            source={{uri: viewDestinationData?.displayImages[0]}}
             style={{width: 75, height: 84, borderRadius: 10, flex: 0.4}}
             resizeMode="cover"
             borderRadius={10}
@@ -670,9 +671,9 @@ const BookingCard = ({navigation, data, status}) => {
           }}>
           <ProgressiveImage
             thumbnailSource={{
-              uri: `${locationData?.displayPhotoUrl}`,
+              uri: viewDestinationData?.displayImages[0],
             }}
-            source={{uri: locationData?.displayPhotoUrl}}
+            source={{uri: viewDestinationData?.displayImages[0]}}
             style={{width: 75, height: 84, borderRadius: 10, flex: 0.4}}
             resizeMode="cover"
             borderRadius={10}

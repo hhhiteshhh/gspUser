@@ -288,9 +288,9 @@ const ExploreScreen = ({
               </View>
             </View>
             <Carousel
-              // ref={c => {
-              //   this._carousel = c;
-              // }}
+              ref={c => {
+                this._carousel = c;
+              }}
               data={popularDestinationData}
               renderItem={renderItem}
               sliderWidth={windowWidth}

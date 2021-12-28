@@ -57,26 +57,26 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
   const [moreThan24Hour, setMoreThan24Hour] = useState(
     route.params.type === 'Available' ? false : true,
   );
-  // console.log({startDate});
-  // console.log({endDate});
-  // console.log(new Date());
-  // console.log(route.params.event);
-  // console.log(route.params.eventId);
+  console.log({startDate});
+  console.log({endDate});
+  console.log(new Date());
+  console.log(route.params.event);
+  console.log(route.params.eventId);
   // console.log(route.params.cityName, countryName?.countryName);
-  // console.log({selectedPackage});
-  // console.log({timeSlot});
-  // console.log(uid);
-  // console.log(route.params);
+  console.log({selectedPackage});
+  console.log({timeSlot});
+  console.log(uid);
+  console.log(route.params);
   // console.log(route.params.cityName);
 
-  useEffect(() => {
-    firestore()
-      .collection('countries')
-      .doc(route?.params?.locationId?.countryId)
-      .onSnapshot(doc => {
-        setCountryName(doc.data());
-      });
-  }, [route?.params?.locationId?.countryId]);
+  // useEffect(() => {
+  //   firestore()
+  //     .collection('countries')
+  //     .doc(route?.params?.locationId?.countryId)
+  //     .onSnapshot(doc => {
+  //       setCountryName(doc.data());
+  //     });
+  // }, [route?.params?.locationId?.countryId]);
   useEffect(() => {
     if (route?.params?.edit) {
       setChangesAlert(true);
@@ -114,7 +114,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         categoryName: route.params.event || '',
         categoryId: route.params.eventId || '',
-        destinationName: `${route.params.cityName}, ${countryName.countryName}`,
+        destinationName: `${route.params.locationId.cityId}, ${route.params.locationId.countryId}`,
         destinationId: route.params.locationId,
         packageId: selectedPackage,
         timeSlot: showTimeSlots ? timeSlot : '',
