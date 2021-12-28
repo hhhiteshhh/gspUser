@@ -64,7 +64,11 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
     });
   }, [navigation]);
 
+  const [textInputFocused, setTextInputFocused] = useState(false);
   const onChangeSearch = q => {
+    if (q.length === 0) {
+      setTextInputFocused(true);
+    }
     setSearchQuery(q);
     showResult(q);
   };
@@ -113,9 +117,10 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
             style={{position: 'absolute', right: 10}}
             onPress={() => {
               Keyboard.dismiss();
-              setFocus(false);
               setResults(exploreScreenData);
+              setFocus(false);
               setSearchQuery('');
+              setTextInputFocused(false);
             }}>
             <Icon
               name={'cross'}
@@ -126,13 +131,13 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
           </TouchableOpacity>
         )}
       </View>
-      <TouchableWithoutFeedback
+      {/* <TouchableWithoutFeedback
         onPress={() => {
           Keyboard.dismiss();
           setResults(exploreScreenData);
           setFocus(false);
-        }}>
-        {results.length !== 0 && !focus ? (
+        }}> */}
+        {results.length !== 0 && !textInputFocused ? (
           <ScrollView
             style={{marginTop: 20}}
             showsHorizontalScrollIndicator={false}
@@ -181,6 +186,11 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
                         eventSelected: eventSelected,
                         event: event,
                       });
+                  setFocus(false);
+                  setIndex();
+                  setSelectedCity();
+                  setResults(exploreScreenData);
+                  setSearchQuery('');
                 } else {
                   ToastAndroid.show(
                     'A location is to be selected',
@@ -252,7 +262,7 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
             )}
           </>
         )}
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   );
 };
