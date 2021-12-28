@@ -77,7 +77,7 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
     if (q) {
       let ele = [];
       exploreScreenData.forEach(element => {
-        if (element.cityName?.toLowerCase().includes(q.toLowerCase())) {
+        if (element.city?.toLowerCase().includes(q.toLowerCase())) {
           ele.push(element);
         }
       });
@@ -149,21 +149,23 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
               flexDirection: 'row',
               marginLeft: windowWidth < 390 ? 20 : 0,
             }}>
-            {results?.map((city, id) => (
-              <TouchableOpacity
-                key={id}
-                onPress={() => {
-                  setIndex(id), setSelectedCity(city);
-                }}
-                style={{marginHorizontal: windowWidth < 390 ? 0 : 16}}>
-                <Destination
-                  title={city.city}
-                  image={city.displayImages[0]}
-                  index={index}
-                  id={id}
-                />
-              </TouchableOpacity>
-            ))}
+            {results?.map((city, id) => {
+              return (
+                <TouchableOpacity
+                  key={id}
+                  onPress={() => {
+                    setIndex(id), setSelectedCity(city);
+                  }}
+                  style={{marginHorizontal: windowWidth < 390 ? 0 : 16}}>
+                  <Destination
+                    title={city.city}
+                    image={city.displayImages[0]}
+                    index={index}
+                    id={id}
+                  />
+                </TouchableOpacity>
+              );
+            })}
           </View>
           <TouchableOpacity
             onPress={() => {

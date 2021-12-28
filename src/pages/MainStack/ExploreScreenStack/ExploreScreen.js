@@ -120,7 +120,7 @@ const ExploreScreen = ({
     if (q) {
       let ele = [];
       popularDestinationData.forEach(element => {
-        if (element.cityName?.toLowerCase().includes(q.toLowerCase())) {
+        if (element.city?.toLowerCase().includes(q.toLowerCase())) {
           ele.push(element);
         }
       });
@@ -208,25 +208,27 @@ const ExploreScreen = ({
                     No such destination
                   </Text>
                 )}
-                {results?.map((city, id) => (
-                  <TouchableOpacity
-                    key={id}
-                    onPress={() => {
-                      setFocus(false);
-                      setSearchQuery('');
-                      navigation.navigate('Location', {
-                        data: city,
-                      });
-                    }}>
-                    <Destination
-                      title={city.cityName}
-                      image={city.displayPhotoUrl}
-                      // index={index}
-                      id={id}
-                      exploreResults
-                    />
-                  </TouchableOpacity>
-                ))}
+                {results?.map((city, id) => {
+                  return (
+                    <TouchableOpacity
+                      key={id}
+                      onPress={() => {
+                        setFocus(false);
+                        setSearchQuery('');
+                        navigation.navigate('Location', {
+                          data: city,
+                        });
+                      }}>
+                      <Destination
+                        title={city.city}
+                        image={city.displayImages[0]}
+                        // index={index}
+                        id={id}
+                        exploreResults
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
             </View>
           </ImageBackground>
@@ -286,9 +288,9 @@ const ExploreScreen = ({
               </View>
             </View>
             <Carousel
-              ref={c => {
-                this._carousel = c;
-              }}
+              // ref={c => {
+              //   this._carousel = c;
+              // }}
               data={popularDestinationData}
               renderItem={renderItem}
               sliderWidth={windowWidth}
