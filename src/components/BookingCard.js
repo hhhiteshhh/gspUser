@@ -60,7 +60,8 @@ const BookingCard = ({navigation, data, status}) => {
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
   };
-
+  // console.log(viewDestinationData);
+  console.log(locationData);
   return (
     <View>
       {status === 'onGoing' &&
@@ -183,8 +184,7 @@ const BookingCard = ({navigation, data, status}) => {
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('Location', {
-                      data: {...viewDestinationData, ...locationData},
-                      countryId: viewDestinationData?.country,
+                      data: {...viewDestinationData},
                       bookingAvailable: false,
                     });
                   }}>

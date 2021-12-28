@@ -10,7 +10,7 @@ const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
         onPress={() => {
           navigation.navigate('Location', {
             data: data,
-            countryId: data?.country,
+            type: data.type,
           });
         }}
         style={{paddingHorizontal: 10, overflow: 'hidden'}}>
@@ -23,9 +23,9 @@ const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
           }}>
           <ProgressiveImage
             thumbnailSource={{
-              uri: data.displayPhotoUrl,
+              uri: data.displayImages[0],
             }}
-            source={{uri: data.displayPhotoUrl}}
+            source={{uri: data.displayImages[0]}}
             style={{
               width: 325,
               height: 284,
@@ -60,7 +60,7 @@ const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
               color: '#000',
               textTransform: 'capitalize',
             }}>
-            {data.cityName}
+            {data.city}
           </Text>
         </View>
       </TouchableOpacity>

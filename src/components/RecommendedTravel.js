@@ -13,15 +13,15 @@ export default function RecommendedTravel({
       onPress={() => {
         navigation.navigate('Location', {
           data: RecommendedDestination,
-          countryId: RecommendedDestination?.country,
+          type: RecommendedDestination.type,
         });
       }}
       style={{postion: 'relative', marginLeft: 20}}>
       <ProgressiveImage
         thumbnailSource={{
-          uri: RecommendedDestination?.displayPhotoUrl,
+          uri: RecommendedDestination?.displayImages[0],
         }}
-        source={{uri: RecommendedDestination?.displayPhotoUrl}}
+        source={{uri: RecommendedDestination?.displayImages[0]}}
         style={{
           width: 149,
           height: 181,
@@ -30,7 +30,7 @@ export default function RecommendedTravel({
         resizeMode="cover"
         borderRadius={11}
       />
-     
+
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
@@ -69,7 +69,7 @@ export default function RecommendedTravel({
               fontWeight: '500',
               textTransform: 'capitalize',
             }}>
-            {RecommendedDestination.cityName}
+            {RecommendedDestination.city}
           </Text>
         </View>
       </LinearGradient>

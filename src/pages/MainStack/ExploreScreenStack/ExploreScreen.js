@@ -45,31 +45,35 @@ const ExploreScreen = ({
   const [focus, setFocus] = useState(false);
   const [loading, setLoading] = useState(true);
   const [amount, setAmount] = useState(0);
-  const [country, setCountry] = useState();
+  const [categories, setCategories] = useState([]);
 
   var formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
   });
-
+  // console.log({categories});
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
   useEffect(() => {
-    firestore()
-      .collection('countries')
-      .doc(popularDestinationData[activeIndex]?.country)
-      .onSnapshot(doc => {
-        setCountry(doc.data());
-      });
+    let newArray = [];
     firestore()
       .collection('packages')
       .doc(exploreScreenData[activeIndex]?.basicPackage)
       .onSnapshot(doc => {
         setAmount(doc.data());
       });
+    exploreScreenData[activeIndex]?.categories?.map((categoryId, index) => {
+      firestore()
+        .collection('categories')
+        .doc(categoryId)
+        .onSnapshot(doc => {
+          newArray.push(doc.data().categoryName);
+        });
+    });
+    setCategories(newArray);
   }, [activeIndex, popularDestinationData, exploreScreenData]);
 
   const renderItem = ({item, index}) => {
@@ -77,9 +81,9 @@ const ExploreScreen = ({
       <View key={index}>
         <ProgressiveImage
           thumbnailSource={{
-            uri: item.displayPhotoUrl,
+            uri: item.displayImages[0],
           }}
-          source={{uri: item.displayPhotoUrl}}
+          source={{uri: item.displayImages[0]}}
           style={styles.image}
           resizeMode="cover"
         />
@@ -192,7 +196,7 @@ const ExploreScreen = ({
                   display: 'flex',
                   flexDirection: 'row',
                   marginLeft: 20,
-                  marginTop: statusBarHeight * 0.5
+                  marginTop: statusBarHeight * 0.5,
                 }}>
                 {searchQuery?.length > 0 && results?.length === 0 && (
                   <Text
@@ -210,7 +214,6 @@ const ExploreScreen = ({
                       setSearchQuery('');
                       navigation.navigate('Location', {
                         data: city,
-                        countryId: city.country,
                       });
                     }}>
                     <Destination
@@ -376,7 +379,7 @@ const ExploreScreen = ({
                         color: '#000',
                         textTransform: 'capitalize',
                       }}>
-                      {popularDestinationData[activeIndex]?.cityName}
+                      {popularDestinationData[activeIndex]?.city}
                       <Text
                         style={{
                           color: Colors.blackLogoText,
@@ -385,7 +388,7 @@ const ExploreScreen = ({
                           textTransform: 'uppercase',
                         }}>
                         {' '}
-                        {country?.countryName}
+                        {popularDestinationData[activeIndex]?.country}
                       </Text>
                     </Text>
                     <Text
@@ -412,22 +415,22 @@ const ExploreScreen = ({
                       }}>
                       A perfect Destination for:
                     </Text>
-                    {popularDestinationData[
-                      activeIndex
-                    ]?.perfectDestinationFor?.map((destination, id) => (
-                      <Text
-                        style={{
-                          fontSize: 18,
-                          color: Colors.blue,
-                          fontWeight: '500',
-                          lineHeight: 26,
-                          fontFamily: 'Jost-Medium',
-                          textTransform: 'capitalize',
-                        }}
-                        key={id}>
-                        {destination}
-                      </Text>
-                    ))}
+                    {categories?.map(
+                      (destination, id) => (
+                        <Text
+                          style={{
+                            fontSize: 18,
+                            color: Colors.blue,
+                            fontWeight: '500',
+                            lineHeight: 26,
+                            fontFamily: 'Jost-Medium',
+                            textTransform: 'capitalize',
+                          }}
+                          key={id}>
+                          {destination}
+                        </Text>
+                      ),
+                    )}
                     <Text
                       style={{
                         fontSize: 14,
@@ -504,8 +507,6 @@ const ExploreScreen = ({
                           ? navigation.navigate('LoginNotice')
                           : navigation.navigate('Location', {
                               data: popularDestinationData[activeIndex],
-                              countryId:
-                                popularDestinationData[activeIndex].country,
                             });
                       }}
                       style={{

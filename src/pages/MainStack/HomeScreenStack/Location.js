@@ -27,22 +27,11 @@ function Location({navigation, route, isGuestUser}) {
   const {eventSelected, event, bookingAvailable = true} = route.params;
   const [clammped, setClammped] = useState(true);
   const [amount, setAmount] = useState(0);
-  const [country, setCountry] = useState();
   const [loading, setLoading] = useState(true);
   var formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
   });
-  useEffect(() => {
-    if (route?.params?.countryId) {
-      firestore()
-        .collection('countries')
-        .doc(route?.params?.countryId)
-        .onSnapshot(doc => {
-          setCountry(doc.data());
-        });
-    }
-  }, [route.params.countryId]);
 
   useEffect(() => {
     if (route?.params?.data?.basicPackage) {
@@ -85,7 +74,7 @@ function Location({navigation, route, isGuestUser}) {
             padding: 0,
             textTransform: 'capitalize',
           }}>
-          {route.params.data.cityName}{' '}
+          {route.params.data.city}{' '}
           <Text
             style={{
               color: Colors.blackLogoText,
@@ -96,7 +85,7 @@ function Location({navigation, route, isGuestUser}) {
               padding: 0,
               textTransform: 'uppercase',
             }}>
-            {country?.countryName}
+            {route.params.data.country}
           </Text>
         </Text>
       </View>
@@ -235,11 +224,13 @@ function Location({navigation, route, isGuestUser}) {
                         location: route.params.location.location,
                         event: event,
                         amount: amount,
+                        type: route.params.type,
                       })
                     : navigation.navigate('ChooseCategory', {
                         location: route.params.data,
                         locationId: route.params.data.id,
                         amount: amount,
+                        type: route.params.data.type,
                       });
                 }}
                 style={{position: 'absolute', bottom: 12, right: 10}}>

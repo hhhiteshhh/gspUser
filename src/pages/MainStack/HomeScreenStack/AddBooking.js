@@ -54,6 +54,9 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
   const [countryName, setCountryName] = useState();
   const [showTimeSlots, setShowTimeSlots] = useState(false);
   const [minDate, setMindate] = useState(new Date());
+  const [moreThan24Hour, setMoreThan24Hour] = useState(
+    route.params.type === 'Available' ? false : true,
+  );
   // console.log({startDate});
   // console.log({endDate});
   // console.log(new Date());
@@ -63,7 +66,7 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
   // console.log({selectedPackage});
   // console.log({timeSlot});
   // console.log(uid);
-  // console.log(route.params.locationId);
+  // console.log(route.params);
   // console.log(route.params.cityName);
 
   useEffect(() => {
@@ -548,6 +551,76 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
               }}
               onPress={() => {
                 setChangesAlert(!changesAlert);
+              }}>
+              <Text
+                style={{
+                  color: '#fff',
+                  textAlign: 'center',
+                  fontSize: 14,
+                  fontWeight: '500',
+                  fontFamily: 'Jost-Medium',
+                }}>
+                Continue
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        isVisible={moreThan24Hour}
+        style={{
+          justifyContent: 'center',
+          margin: 0,
+          height: 81,
+          marginRight: 20,
+          marginLeft: 20,
+        }}
+        animationIn={'slideInUp'}
+        animationOut={'slideOutDown'}
+        animationInTiming={500}
+        animationOutTiming={500}
+        backdropColor="rgba(0,0,0,0.5)">
+        <View
+          style={{
+            backgroundColor: 'white',
+            borderRadius: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 10,
+          }}>
+          <Text
+            style={{
+              color: '#000',
+              textAlign: 'center',
+              fontSize: 19,
+              lineHeight: 27,
+              paddingHorizontal: 26,
+              paddingTop: 11,
+              textTransform: 'capitalize',
+            }}>
+            This booking might take more than 24 hours to allot a photographer
+          </Text>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingTop: 8,
+            }}>
+            <TouchableOpacity
+              style={{
+                borderRadius: 10,
+                borderColor: Colors.white,
+                paddingHorizontal: 33,
+                paddingVertical: 8,
+                width: 124,
+                height: 36,
+                backgroundColor: Colors.blue,
+                elevation: 4,
+              }}
+              onPress={() => {
+                setMoreThan24Hour(!moreThan24Hour);
               }}>
               <Text
                 style={{

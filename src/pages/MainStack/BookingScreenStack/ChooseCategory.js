@@ -72,6 +72,7 @@ const ChooseCategory = ({
                   eventId: category.uid,
                   amount: route.params.amount,
                   cityName: route.params?.location?.cityName,
+                  type: route.params.type,
                 });
               }}
               key={index}>
@@ -118,6 +119,7 @@ const ChooseCategory = ({
                 eventId: '',
                 amount: route.params.amount,
                 cityName: route.params?.location?.cityName,
+                type: route.params.type,
               });
             }}>
             <Text

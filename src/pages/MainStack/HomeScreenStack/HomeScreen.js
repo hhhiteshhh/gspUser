@@ -18,7 +18,7 @@ import PopularSpotsPicture from '../../../components/PopularSpotsPicture';
 import StatusBarComponent from '../../../components/StatusBarComponent';
 import LoadingPlaceHolder from '../../../components/LoadingPlaceHolder';
 import ProgressiveImage from '../../../components/ProgressiveImage';
-import InstaStory from 'react-native-insta-story';
+import InstaStory from '../../../packages/react-native-insta-story';
 
 const statusBarHeight = StatusBar.currentHeight;
 export default function HomeScreen({
