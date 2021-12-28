@@ -51,7 +51,6 @@ const ExploreScreen = ({
     style: 'currency',
     currency: 'INR',
   });
-  // console.log({categories});
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);

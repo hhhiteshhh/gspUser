@@ -50,7 +50,6 @@ const BookingCard = ({navigation, data, status}) => {
         setPhotographerData({...snapshot.data()});
       });
   }, [data]);
-  // console.log(data.destinationId);
   const [cancelAlert, setCancelAlert] = useState(false);
   const [show, setShow] = useState(false);
   const bookingdate = data?.createdAt?.toDate().toLocaleDateString().split('/');
@@ -61,8 +60,7 @@ const BookingCard = ({navigation, data, status}) => {
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
   };
-  console.log(viewDestinationData);
-  // console.log(locationData);
+
   return (
     <View>
       {status === 'onGoing' &&

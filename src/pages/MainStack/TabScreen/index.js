@@ -53,7 +53,7 @@ const TabScreen = props => {
     if (uid) {
       firestore()
         .collection('bookings')
-        .where('createdBy', '==', uid)
+        .orderBy('createdAt', 'desc')
         .onSnapshot(snapshot =>
           setBookingData(
             snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
@@ -183,6 +183,7 @@ const TabScreen = props => {
             isGuestUser={isGuestUser}
             bookingData={bookingData}
             bookingNotifications={bookingNotifications}
+            uid={uid}
           />
         )}
       </Tab.Screen>

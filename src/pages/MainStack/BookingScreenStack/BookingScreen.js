@@ -29,6 +29,7 @@ export default function BookingScreen({
   navigation,
   bookingData,
   bookingNotifications,
+  uid,
 }) {
   const [changesAlert, setChangesAlert] = useState(
     bookingNotifications?.length > 0 ? true : false,
@@ -46,21 +47,7 @@ export default function BookingScreen({
   const [cancelledBookings, setCancelBookings] = useState([]);
   const [onGoingBookings, setOnGoingBookings] = useState([]);
   const [completedBookings, setCompletedBookings] = useState([]);
-  // useEffect(() => {
-  //   const dummyArray = [];
-  //   bookingData.forEach(booking => {
-  //     dummyArray.push(booking.bookingStatus);
-  //     setCancelBookingsStatus(dummyArray);
-  //   });
-  // }, [bookingData]);
-  // useEffect(() => {
-  //   setCancelImage(allEqual(cancelBookingsStatus));
-  //   setCompleteImage(someComplete(cancelBookingsStatus));
-  // }, [cancelBookingsStatus, bookingData]);
-  // const allEqual = cancelBookingsStatus =>
-  //   cancelBookingsStatus?.some(v => v === 'onGoing');
-  // const someComplete = cancelBookingsStatus =>
-  //   cancelBookingsStatus?.some(v => v === 'completed');
+  const [userBookings, setUserBookings] = useState([]);
 
   useEffect(() => {
     bookingNotifications?.map(item => {
@@ -75,22 +62,29 @@ export default function BookingScreen({
 
   useEffect(() => {
     let newArray = bookingData?.filter(function (el) {
+      return el.createdBy === uid;
+    });
+    setUserBookings(newArray);
+  }, [bookingData]);
+  console.log(userBookings.length);
+  useEffect(() => {
+    let newArray = userBookings?.filter(function (el) {
       return el.bookingStatus === 'cancelled';
     });
     setCancelBookings(newArray);
-  }, [bookingData]);
+  }, [userBookings]);
   useEffect(() => {
-    let newArray = bookingData?.filter(function (el) {
+    let newArray = userBookings?.filter(function (el) {
       return el.bookingStatus === 'onGoing';
     });
     setOnGoingBookings(newArray);
-  }, [bookingData]);
+  }, [userBookings]);
   useEffect(() => {
-    let newArray = bookingData?.filter(function (el) {
+    let newArray = userBookings?.filter(function (el) {
       return el.bookingStatus === 'completed';
     });
     setCompletedBookings(newArray);
-  }, [bookingData]);
+  }, [userBookings]);
 
   return (
     <View style={styles.root}>

@@ -57,17 +57,17 @@ const AddBooking = ({navigation, route, uid, packageData}) => {
   const [moreThan24Hour, setMoreThan24Hour] = useState(
     route.params.type === 'Available' ? false : true,
   );
-  console.log({startDate});
-  console.log({endDate});
-  console.log(new Date());
-  console.log(route.params.event);
-  console.log(route.params.eventId);
-  // console.log(route.params.cityName, countryName?.countryName);
-  console.log({selectedPackage});
-  console.log({timeSlot});
-  console.log(uid);
-  console.log(route.params);
-  // console.log(route.params.cityName);
+  // console.log({startDate});
+  // console.log({endDate});
+  // console.log(new Date());
+  // console.log(route.params.event);
+  // console.log(route.params.eventId);
+  // // console.log(route.params.cityName, countryName?.countryName);
+  // console.log({selectedPackage});
+  // console.log({timeSlot});
+  // console.log(uid);
+  // console.log(route.params);
+  // // console.log(route.params.cityName);
 
   // useEffect(() => {
   //   firestore()
