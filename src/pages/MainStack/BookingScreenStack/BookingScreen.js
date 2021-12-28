@@ -66,7 +66,6 @@ export default function BookingScreen({
     });
     setUserBookings(newArray);
   }, [bookingData]);
-  console.log(userBookings.length);
   useEffect(() => {
     let newArray = userBookings?.filter(function (el) {
       return el.bookingStatus === 'cancelled';
