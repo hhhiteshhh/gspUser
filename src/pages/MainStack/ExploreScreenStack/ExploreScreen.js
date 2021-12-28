@@ -65,7 +65,7 @@ const ExploreScreen = ({
       .onSnapshot(doc => {
         setAmount(doc.data());
       });
-    exploreScreenData[activeIndex]?.categories?.map((categoryId, index) => {
+      popularDestinationData[activeIndex]?.categories?.map((categoryId, index) => {
       firestore()
         .collection('categories')
         .doc(categoryId)
@@ -284,9 +284,9 @@ const ExploreScreen = ({
               </View>
             </View>
             <Carousel
-              ref={c => {
-                this._carousel = c;
-              }}
+              // ref={c => {
+              //   this._carousel = c;
+              // }}
               data={popularDestinationData}
               renderItem={renderItem}
               sliderWidth={windowWidth}
