@@ -65,14 +65,16 @@ const ExploreScreen = ({
       .onSnapshot(doc => {
         setAmount(doc.data());
       });
-      popularDestinationData[activeIndex]?.categories?.map((categoryId, index) => {
-      firestore()
-        .collection('categories')
-        .doc(categoryId)
-        .onSnapshot(doc => {
-          newArray.push(doc.data().categoryName);
-        });
-    });
+    popularDestinationData[activeIndex]?.categories?.map(
+      (categoryId, index) => {
+        firestore()
+          .collection('categories')
+          .doc(categoryId)
+          .onSnapshot(doc => {
+            newArray.push(doc.data().categoryName);
+          });
+      },
+    );
     setCategories(newArray);
   }, [activeIndex, popularDestinationData, exploreScreenData]);
 
@@ -284,9 +286,9 @@ const ExploreScreen = ({
               </View>
             </View>
             <Carousel
-              // ref={c => {
-              //   this._carousel = c;
-              // }}
+              ref={c => {
+                this._carousel = c;
+              }}
               data={popularDestinationData}
               renderItem={renderItem}
               sliderWidth={windowWidth}
@@ -415,22 +417,20 @@ const ExploreScreen = ({
                       }}>
                       A perfect Destination for:
                     </Text>
-                    {categories?.map(
-                      (destination, id) => (
-                        <Text
-                          style={{
-                            fontSize: 18,
-                            color: Colors.blue,
-                            fontWeight: '500',
-                            lineHeight: 26,
-                            fontFamily: 'Jost-Medium',
-                            textTransform: 'capitalize',
-                          }}
-                          key={id}>
-                          {destination}
-                        </Text>
-                      ),
-                    )}
+                    {categories?.map((destination, id) => (
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          color: Colors.blue,
+                          fontWeight: '500',
+                          lineHeight: 26,
+                          fontFamily: 'Jost-Medium',
+                          textTransform: 'capitalize',
+                        }}
+                        key={id}>
+                        {destination}
+                      </Text>
+                    ))}
                     <Text
                       style={{
                         fontSize: 14,
