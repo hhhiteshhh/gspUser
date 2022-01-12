@@ -159,7 +159,7 @@ const SelectCity = ({navigation, route, exploreScreenData}) => {
                   style={{marginHorizontal: windowWidth < 390 ? 0 : 16}}>
                   <Destination
                     title={city.city}
-                    image={city.displayImages[0]}
+                    image={city.displayPictureUrl}
                     index={index}
                     id={id}
                   />

@@ -88,9 +88,9 @@ const BookingCard = ({navigation, data, status}) => {
               }}>
               <ProgressiveImage
                 thumbnailSource={{
-                  uri: viewDestinationData?.displayImages[0],
+                  uri: viewDestinationData?.displayPictureUrl,
                 }}
-                source={{uri: viewDestinationData?.displayImages[0]}}
+                source={{uri: viewDestinationData?.displayPictureUrl}}
                 style={{
                   width: 126,
                   height: 102,
@@ -390,9 +390,9 @@ const BookingCard = ({navigation, data, status}) => {
             }}>
             <ProgressiveImage
               thumbnailSource={{
-                uri: viewDestinationData?.displayImages[0],
+                uri: viewDestinationData?.displayPictureUrl,
               }}
-              source={{uri: viewDestinationData?.displayImages[0]}}
+              source={{uri: viewDestinationData?.displayPictureUrl}}
               style={{
                 width: 75,
                 height: 84,
@@ -542,9 +542,9 @@ const BookingCard = ({navigation, data, status}) => {
           }}>
           <ProgressiveImage
             thumbnailSource={{
-              uri: viewDestinationData?.displayImages[0],
+              uri: viewDestinationData?.displayPictureUrl,
             }}
-            source={{uri: viewDestinationData?.displayImages[0]}}
+            source={{uri: viewDestinationData?.displayPictureUrl}}
             style={{width: 75, height: 84, borderRadius: 10, flex: 0.4}}
             resizeMode="cover"
             borderRadius={10}
@@ -669,9 +669,9 @@ const BookingCard = ({navigation, data, status}) => {
           }}>
           <ProgressiveImage
             thumbnailSource={{
-              uri: viewDestinationData?.displayImages[0],
+              uri: viewDestinationData?.displayPictureUrl,
             }}
-            source={{uri: viewDestinationData?.displayImages[0]}}
+            source={{uri: viewDestinationData?.displayPictureUrl}}
             style={{width: 75, height: 84, borderRadius: 10, flex: 0.4}}
             resizeMode="cover"
             borderRadius={10}

@@ -82,9 +82,9 @@ const ExploreScreen = ({
       <View key={index}>
         <ProgressiveImage
           thumbnailSource={{
-            uri: item.displayImages[0],
+            uri: item.displayPictureUrl,
           }}
-          source={{uri: item.displayImages[0]}}
+          source={{uri: item.displayPictureUrl}}
           style={styles.image}
           resizeMode="cover"
         />
@@ -220,7 +220,7 @@ const ExploreScreen = ({
                       }}>
                       <Destination
                         title={city.city}
-                        image={city.displayImages[0]}
+                        image={city.displayPictureUrl}
                         // index={index}
                         id={id}
                         exploreResults

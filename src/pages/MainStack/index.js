@@ -37,6 +37,7 @@ function MainStack({props}) {
       );
     firestore()
       .collection('destinations')
+      .where('archived', '==', false)
       .onSnapshot(snapshot =>
         setExploreScreenData(
           snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),
@@ -193,9 +194,7 @@ function MainStack({props}) {
           />
         )}
       </Stack.Screen>
-      <Stack.Screen
-        name="ChatRoom"
-        options={{headerShown: true}}>
+      <Stack.Screen name="ChatRoom" options={{headerShown: true}}>
         {props => <ChatRoom {...props} data={data} uid={uid} />}
       </Stack.Screen>
     </Stack.Navigator>

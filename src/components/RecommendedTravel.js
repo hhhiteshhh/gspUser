@@ -19,9 +19,9 @@ export default function RecommendedTravel({
       style={{postion: 'relative', marginLeft: 20}}>
       <ProgressiveImage
         thumbnailSource={{
-          uri: RecommendedDestination?.displayImages[0],
+          uri: RecommendedDestination?.displayPictureUrl,
         }}
-        source={{uri: RecommendedDestination?.displayImages[0]}}
+        source={{uri: RecommendedDestination?.displayPictureUrl}}
         style={{
           width: 149,
           height: 181,

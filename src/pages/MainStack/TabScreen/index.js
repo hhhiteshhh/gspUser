@@ -44,6 +44,7 @@ const TabScreen = props => {
       );
     firestore()
       .collection('destinations')
+      .where("archived", "==", false)
       .onSnapshot(snapshot =>
         setExploreScreenData(
           snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})),

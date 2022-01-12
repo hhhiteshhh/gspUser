@@ -23,9 +23,9 @@ const PopularSpotsPicture = ({data, navigation, isGuestUser}) => {
           }}>
           <ProgressiveImage
             thumbnailSource={{
-              uri: data.displayImages[0],
+              uri: data.displayPictureUrl,
             }}
-            source={{uri: data.displayImages[0]}}
+            source={{uri: data.displayPictureUrl}}
             style={{
               width: 325,
               height: 284,
