@@ -97,14 +97,6 @@ const AboutScreen = ({navigation, data}) => {
       return false;
     }
   };
-  const checkNationality = name => {
-    let result = REGEX.name.test(name);
-    if (result) {
-      return true;
-    } else {
-      return false;
-    }
-  };
   const updateProfile = async () => {
     const updatedDetails = [];
     if (firstName != data?.firstName) {
@@ -145,11 +137,11 @@ const AboutScreen = ({navigation, data}) => {
       url = url.split('#').pop().split('?').pop();
       let imageName = url.substring(url.lastIndexOf('/') + 1);
       storageRef
-        .child(`${data?.firstName}/${imageName}`)
+        .child(`users/${uid}/${imageName}`)
         .putFile(response?.assets[0].uri)
         .then(async snapshot => {
           await storage()
-            .ref(data?.firstName)
+            .ref(`users/${uid}`)
             .child(imageName)
             .getDownloadURL()
             .then(url => {
@@ -198,8 +190,7 @@ const AboutScreen = ({navigation, data}) => {
       <View style={{display: 'flex', justifyContent: 'space-between'}}>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => !isUploading && openGallery()}
-          >
+          onPress={() => !isUploading && openGallery()}>
           {isUploading ? (
             <View
               style={{
@@ -329,9 +320,9 @@ const AboutScreen = ({navigation, data}) => {
               ]}>
               EMAIL ADDRESS
             </Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Text style={styles.label2}>Verify Email</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <TextInput
             style={styles.input}
